@@ -99,14 +99,14 @@ FullScreenAbstract.prototype = {
 		}
 		return this.__state[key];
 	},
-	requestFullScreen: function(elem, options) {
+	open: function(elem, options) {
 		// do nothing if request is for already fullscreened element
 		if (elem === this._fullScreenElement) {
 			return;
 		}
 		// exit active fullscreen before opening another one
 		if (this.isFullScreen()) {
-			this.exitFullScreen();
+			this.exit();
 		}
 		// save fullscreened element
 		this._fullScreenElement = elem;
@@ -117,9 +117,7 @@ FullScreenAbstract.prototype = {
 		// prevent document from scrolling
 		this._preventDocumentScroll();
 	},
-	getFullScreenElement: function() {
-		return this._fullScreenElement;
-	},
+	exit: null,
 	isFullScreen: null,
 	isNativelySupported: function() {
 		return IS_NATIVELY_SUPPORTED;

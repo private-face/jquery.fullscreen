@@ -15,7 +15,7 @@ $.fn.fullscreen = function(options) {
 	delete options.overflow;
 
 	if (elem) {
-		$.fullscreen.requestFullScreen(elem, options);
+		$.fullscreen.open(elem, options);
 	}
 
 	return this;

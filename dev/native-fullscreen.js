@@ -10,13 +10,13 @@ extend(FullScreenNative, FullScreenAbstract, {
 			.bind('fullscreenchange mozfullscreenchange webkitfullscreenchange', $.proxy(this._fullScreenChange, this))
 			.bind('fullscreenerror mozfullscreenerror webkitfullscreenerror', $.proxy(this._fullScreenError, this));
 	},
-	requestFullScreen: function(elem, options) {
-		FullScreenNative._super.requestFullScreen.apply(this, arguments);
+	open: function(elem, options) {
+		FullScreenNative._super.open.apply(this, arguments);
 
-		var requestFS = elem.requestFullScreen || elem.mozRequestFullScreen || elem.webkitRequestFullScreen;
+		var requestFS = elem.open || elem.mozRequestFullScreen || elem.webkitRequestFullScreen;
 		requestFS.call(elem);
 	},
-	exitFullScreen: function() {
+	exit: function() {
 		var cancelFullScreen = document.cancelFullScreen || document.mozCancelFullScreen || document.webkitCancelFullScreen;
 		cancelFullScreen.call(document);
 	},

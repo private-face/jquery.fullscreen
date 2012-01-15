@@ -22,7 +22,7 @@ extend(FullScreenFallback, FullScreenAbstract, {
 			}
 		}
 
-		this.exitFullScreen();
+		this.exit();
 		return false; // ?
 	},
 	_init: function() {
@@ -30,12 +30,12 @@ extend(FullScreenFallback, FullScreenAbstract, {
 		
 		$(document).delegate('*', 'keydown.fullscreen', $.proxy(this.__keydownHandler, this)); // use delegateFirst?
 	},
-	requestFullScreen: function(elem) {
-		FullScreenFallback._super.requestFullScreen.apply(this, arguments);
+	open: function(elem) {
+		FullScreenFallback._super.open.apply(this, arguments);
 		this.__isFullScreen = true;
 		this._fullScreenChange();
 	},
-	exitFullScreen: function() {
+	exit: function() {
 		this.__isFullScreen = false;
 		this._fullScreenChange();
 	},
