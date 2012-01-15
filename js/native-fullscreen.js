@@ -1,6 +1,5 @@
 var FullScreenNative = function(onStateChange) {
 	FullScreenNative._super.constructor.apply(this, arguments);
-
 };
 
 extend(FullScreenNative, FullScreenAbstract, {

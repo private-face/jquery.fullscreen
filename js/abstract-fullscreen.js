@@ -23,13 +23,27 @@ FullScreenAbstract.prototype = {
 			'bottom': 0,
 			'right': 0
 		},
-		toggleClass: ''
+		toggleClass: '',
+		documentScroll: false
+	},
+	__documentOverflow: '',
+	_preventDocumentScroll: function() {
+		if (!this.__options.documentScroll) {
+			this.__documentOverflow = $('body').css('overflow');
+			$('body').css('overflow', 'hidden');
+		}
+	},
+	_allowDocumentScroll: function() {
+		if (!this.__options.documentScroll) {
+			$('body').css('overflow', this.__documentOverflow);
+		}
 	},
 	_init: function() {
 		// this._fullScreenChange();
 	},
 	_fullScreenChange: function() {
 		if (!this.isFullScreen()) {
+			this._allowDocumentScroll();
 			this._revertStyles();
 			this._triggerEvents();
 			this._fullScreenElement = null;
@@ -94,6 +108,8 @@ FullScreenAbstract.prototype = {
 		this.__options = $.extend(true, {}, this.__DEFAULT_OPTIONS, options);
 		// save current element styles and apply new
 		this._saveAndApplyStyles();
+		// prevent document from scrolling
+		this._preventDocumentScroll();
 	},
 	getFullScreenElement: function() {
 		return this._fullScreenElement;

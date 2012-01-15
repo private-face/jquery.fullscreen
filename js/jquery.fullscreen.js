@@ -15,14 +15,13 @@ $.fn.fullscreen = function(options) {
 	var elem = this.first()[0];
 
 	options = $.extend({}, PLUGIN_DEFAULTS, options);
+	options.styles = {
+		overflow: options.overflow
+	};
+	delete options.overflow;
 
 	if (elem) {
-		$.fullscreen.requestFullScreen(elem, {
-			styles: {
-				overflow: options.overflow
-			},
-			toggleClass: options.toggleClass
-		});
+		$.fullscreen.requestFullScreen(elem, options);
 	}
 
 	return this;
