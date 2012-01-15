@@ -1,3 +1,7 @@
+var IS_NATIVELY_SUPPORTED = defined(document.fullScreen) ||
+			 defined(document.mozFullScreen) ||
+			 defined(document.webkitFullScreen) || defined(document.webkitIsFullScreen);
+			
 var FullScreenAbstract = function(onStateChange) {
 	this.onStateChange = typeof onStateChange === 'function' ? onStateChange : $.noop;
 	this.__state = {
@@ -16,8 +20,10 @@ FullScreenAbstract.prototype = {
 			'width': '100%',
 			'height': '100%',
 			'position': 'fixed',
-			'z-index': '2147483647',
-			'box-sizing': 'border-box',
+			'zIndex': '2147483647',
+			'boxSizing': 'border-box',
+			'MozBoxSizing': 'border-box',
+			'WebkitBoxSizing': 'border-box',
 			'left': 0,
 			'top': 0,
 			'bottom': 0,
@@ -65,9 +71,9 @@ FullScreenAbstract.prototype = {
 		this.__savedStyles = {};
 		for (var property in this.__options.styles) {
 			// save
-			this.__savedStyles[property] = $elem.css(property);
+			this.__savedStyles[property] = this._fullScreenElement.style[property];
 			// apply
-			$elem.css(property, this.__options.styles[property]);
+			this._fullScreenElement.style[property] = this.__options.styles[property];
 		}
 		if (this.__options.toggleClass) {
 			$elem.addClass(this.__options.toggleClass);
@@ -76,7 +82,7 @@ FullScreenAbstract.prototype = {
 	_revertStyles: function() {
 		var $elem = $(this._fullScreenElement);
 		for (var property in this.__options.styles) {
-			$elem.css(property, this.__savedStyles[property]);
+			this._fullScreenElement.style[property] = this.__savedStyles[property];
 		}
 		if (this.__options.toggleClass) {
 			$elem.removeClass(this.__options.toggleClass);
@@ -114,5 +120,8 @@ FullScreenAbstract.prototype = {
 	getFullScreenElement: function() {
 		return this._fullScreenElement;
 	},
-	isFullScreen: null
+	isFullScreen: null,
+	isNativelySupported: function() {
+		return IS_NATIVELY_SUPPORTED;
+	}
 };
