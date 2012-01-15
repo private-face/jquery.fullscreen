@@ -1,10 +1,75 @@
-h1. jquery.fullscreen
+h1. jQuery.fullscreen
+
+jQuery.fullscreen is a jQuery plugin which allows you to open any element on the page in full-screen mode. If this feature is not supported by the browser then element will be just stretched to fill the screen without switching to full-screen.
+
+Currently "Fullscreen API":http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html#api is natively supported in Chrome 15+, Safari 5.1+ and Firefox 10. It is also present in Firefox 9.0, but it is disabled by default. You can be enable it by setting @full-screen-api.enabled@ to @true@ in @about:config@.
+
+h2. Usage
+
+h3. Open/close fullscreen
+
+<pre><code><div id="some_selector">
+	Block to be displayed in fullscreen.
+</div>
+
+<script>
+	// open element in fullscreen
+	$('#some_selector').fullscreen(options);
+	// close fullscreen
+	$.fullscreen.exit();
+</script>
+</code></pre>
+
+h4. Options
+
+Currently the following options are supported:
+* @overflow {'hidden'}@: 'overflow' css-property, which is set to an element when it is being opened in fullscreen;
+* @toggleClass {null}@: class name which is toggled when an element changes its 'fullscreen' state;
+* @documentScroll {false}@: set this options to @true@ if you want to allow document's scroll when full-screen mode is active.
+
+h3. $.fullscreen object methods
+
+* @$.fullscreen.open(element[, options])@: equivalent to @$(element).fullscreen(options)@;
+* @$.fullscreen.exit()@: exit fullscreen mode;
+* @$.fullscreen.isNativelySupported() {true|false}@: returns @true@ if browser supports Fullscreen API natively;
+* @$.fullscreen.isFullScreen() {true|false}@: returns @true@ if there is a block opened in fullscreen.
+
+h3. Events
+
+h4. fscreenchange
+
+@fscreenchange@ event is sent to @window.document@ when some element on the page changes its 'fullscreen' state. Three parameters are passed to an event's handler: 
+* jQuery.Event object
+* fullscreen state (true or false)
+* Element
+
+h4. fscreenopen/fscreenclose
+
+@fscreenopen@ and @fscreenclose@ events are sent to an element when it's being opened in fullscreen (or exited fullscreen mode).
+
+h2. Browser support
+
+h3. Native
+
+* Firefox 10+
+* Chrome 15+
+* Safari 5.1+
+
+h3. Fallback
+
+* IE 8.0+ (Should work in IE7 as well, perhaps with some minor issues)
+* Opera
+
+h2. Read more
+
+* "FullScreen API Editor's Draft":http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html#api
+* "MDN – Using full-screen mode":https://developer.mozilla.org/en/DOM/Using_full-screen_mode
 
 h2. License
 
 h3. MIT License
 
-Copyright (c) 2011 Vladimir Zhuravlev
+Copyright (c) 2012 Vladimir Zhuravlev
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
