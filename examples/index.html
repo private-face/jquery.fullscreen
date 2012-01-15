@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery.fullscreen example</title>
+	<link rel="stylesheet" href="styles.css" type="text/css" media="screen">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="../release/jquery.fullscreen-0.1.min.js"></script>
+</head>
+<body>
+	<div id="main">
+		<h1>jQuery.fullscreen</h1>
+		<div class="example">
+			<div id="fullscreen">
+				<h2>Example</h2>
+				<p>Your browser <span id="support">doesn't support</span> FullScreen API.</p>
+				<p>This block is <span id="state">not</span> in fullscreen mode. <a href="#" class="requestfullscreen">Click to open it in fullscreen</a><a href="#" class="exitfullscreen" style="display: none">Click to exit fullscreen</a>.</p>
+			</div>
+			<h3>Source code:</h3>
+			<code>
+			</code>
+			<script type="text/javascript">
+				$(function() {
+					// check native support
+					$('#support').text($.fullscreen.isNativelySupported() ? 'supports' : 'doesn\'t support');
+					
+					// open in fullscreen
+					$('#fullscreen .requestfullscreen').click(function() {
+						$('#fullscreen').fullscreen();
+						return false;
+					});
+					
+					// exit fullscreen
+					$('#fullscreen .exitfullscreen').click(function() {
+						$.fullscreen.exitFullScreen();
+						return false;
+					});
+					
+					// document's event
+					$(document).bind('fscreenchange', function(e, state, elem) {
+						// if we currently in fullscreen mode
+						if ($.fullscreen.isFullScreen()) {
+							$('#fullscreen .requestfullscreen').hide();
+							$('#fullscreen .exitfullscreen').show();
+						} else {
+							$('#fullscreen .requestfullscreen').show();
+							$('#fullscreen .exitfullscreen').hide();
+						}
+						
+						$('#state').text($.fullscreen.isFullScreen() ? '' : 'not');
+					});
+				});
+			</script>
+		</div>
+		<div>
+	</div>
+	<script type="text/javascript" charset="utf-8">
+		$(function() {
+			$('.example').each(function() {
+				var $el = $(this);
+				
+				$el.find('code').text($el.find('script').text().replace(/\n\t\t\t\t/gm, '\n').replace(/^\n/gm, ''));
+			});
+		});
+	</script>
+</body>
+</html>
