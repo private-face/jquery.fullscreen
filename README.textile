@@ -30,7 +30,7 @@ h3. $.fullscreen object methods
 * @$.fullscreen.open(element[, options])@: equivalent to @$(element).fullscreen(options)@;
 * @$.fullscreen.exit()@: exit fullscreen mode;
 * @$.fullscreen.isNativelySupported() {true|false}@: returns @true@ if browser supports Fullscreen API natively;
-* @$.fullscreen.isFullScreen() {true|false}@: returns @true@ if there is a block opened in fullscreen.
+* @$.fullscreen.isFullScreen() {true|false}@: returns @true@ if there is an element opened in fullscreen.
 
 h3. Events
 
@@ -61,7 +61,7 @@ h3. Fallback
 h2. Read more
 
 * "FullScreen API Editor's Draft":http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html#api
-* "MDN – Using full-screen mode":https://developer.mozilla.org/en/DOM/Using_fullscreen_mode
+* "MDN – Using full-screen mode":https://developer.mozilla.org/en/DOM/Using_full-screen_mode
 
 h2. License
 
