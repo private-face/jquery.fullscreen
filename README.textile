@@ -1,12 +1,12 @@
 h1. jQuery.fullscreen
 
-jQuery.fullscreen is a jQuery plugin which allows you to open any element on the page in full-screen mode. If this feature is not supported by the browser then element will be just stretched to fill the screen without switching to full-screen.
+jQuery.fullscreen is a jQuery plugin which allows you to open any element on the page in fullscreen mode. If this feature is not supported by the browser then element will be just stretched to fill the screen without switching to fullscreen.
 
-Currently "Fullscreen API":http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html#api is natively supported in Chrome 15+, Safari 5.1+ and Firefox 10. It is also present in Firefox 9.0, but it is disabled by default. You can be enable it by setting @full-screen-api.enabled@ to @true@ in @about:config@.
+Currently "Fullscreen API":http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html#api is natively supported in Chrome 15+, Safari 5.1+ and Firefox 10. It is also present in Firefox 9.0, but it is disabled by default. You can be enable it by setting @fullscreen-api.enabled@ to @true@ in @about:config@.
 
 h2. Usage
 
-h3. Open/close fullscreen
+h3. Request/exit fullscreen
 
 <pre><code><div id="some_selector">
 	Block to be displayed in fullscreen.
@@ -20,12 +20,10 @@ h3. Open/close fullscreen
 </script>
 </code></pre>
 
-h4. Options
-
 Currently the following options are supported:
 * @overflow {'hidden'}@: 'overflow' css-property, which is set to an element when it is being opened in fullscreen;
 * @toggleClass {null}@: class name which is toggled when an element changes its 'fullscreen' state;
-* @documentScroll {false}@: set this options to @true@ if you want to allow document's scroll when full-screen mode is active.
+* @documentScroll {false}@: set this options to @true@ if you want to allow document's scroll when fullscreen mode is active.
 
 h3. $.fullscreen object methods
 
@@ -63,7 +61,7 @@ h3. Fallback
 h2. Read more
 
 * "FullScreen API Editor's Draft":http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html#api
-* "MDN – Using full-screen mode":https://developer.mozilla.org/en/DOM/Using_full-screen_mode
+* "MDN – Using full-screen mode":https://developer.mozilla.org/en/DOM/Using_fullscreen_mode
 
 h2. License
 
