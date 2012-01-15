@@ -1,17 +1,18 @@
-var NativeFullScreen = function(onStateChange) {
-	NativeFullScreen._super.constructor.apply(this, arguments);
+var FullScreenNative = function(onStateChange) {
+	FullScreenNative._super.constructor.apply(this, arguments);
 
 };
 
-extend(NativeFullScreen, AbstractFullScreen, {
+extend(FullScreenNative, FullScreenAbstract, {
 	_init: function() {
-		NativeFullScreen._super._init.apply(this, arguments);
+		FullScreenNative._super._init.apply(this, arguments);
 
-		$(document).bind('fullscreenchange mozfullscreenchange webkitfullscreenchange', $.proxy(this._fullScreenChange, this));
-		$(document).bind('fullscreenerror mozfullscreenerror webkitfullscreenerror', $.proxy(this._fullScreenError, this));
+		$(document)
+			.bind('fullscreenchange mozfullscreenchange webkitfullscreenchange', $.proxy(this._fullScreenChange, this))
+			.bind('fullscreenerror mozfullscreenerror webkitfullscreenerror', $.proxy(this._fullScreenError, this));
 	},
-	requestFullScreen: function(elem) {
-		NativeFullScreen._super.requestFullScreen.apply(this, arguments);
+	requestFullScreen: function(elem, options) {
+		FullScreenNative._super.requestFullScreen.apply(this, arguments);
 
 		var requestFS = elem.requestFullScreen || elem.mozRequestFullScreen || elem.webkitRequestFullScreen;
 		requestFS.call(elem);
@@ -27,15 +28,12 @@ extend(NativeFullScreen, AbstractFullScreen, {
 				return false;
 		}
 		return true;
-	},
-	// getFullScreenElement: function() {
-		/* return defined(document.fullScreenElement) && document.fullScreenElement ||
+	}/*,
+	getFullScreenElement: function() {
+		// document.fullScreenElement and document.webkitFullScreenElement don't work in webkit yet
+		return defined(document.fullScreenElement) && document.fullScreenElement ||
 			defined(document.mozFullScreenElement) && document.mozFullScreenElement ||
 			defined(document.webkitFullScreenElement) && document.webkitFullScreenElement || 
-			null; */
-
-		// since both document.fullScreenElement and document.webkitFullScreenElement doesn't work in webkit yet,
-		// using this.__fullScreenElement instead
-	// 	return this.__fullScreenElement;
-	// }
+			null;
+	}*/
 });

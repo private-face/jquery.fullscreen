@@ -48,7 +48,7 @@
                     $(this).fullscreen({
                         toggleClass: 'fscreen',
                         overflow: 'auto'
-                    }, true);
+                    });
                 })
                 .bind('fscreenopen fscreenclose', function(e) {
                     console.log(e.type, $(this), arguments);
