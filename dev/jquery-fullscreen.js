@@ -1,4 +1,4 @@
-$.fullscreen = !IS_NATIVELY_SUPPORTED 
+$.fullscreen = IS_NATIVELY_SUPPORTED 
 				? new FullScreenNative() 
 				: new FullScreenFallback();
 

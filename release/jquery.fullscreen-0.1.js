@@ -4,7 +4,7 @@
  * 
  * Released under MIT License
  * 
- * Date: Sun Jan 15 19:43:57 GST 2012
+ * Date: Sun Jan 15 19:53:55 GST 2012
  **/
 ;(function($) {
 
@@ -213,7 +213,7 @@ extend(FullScreenFallback, FullScreenAbstract, {
 		return this.__isFullScreen;
 	}
 });
-$.fullscreen = !IS_NATIVELY_SUPPORTED 
+$.fullscreen = IS_NATIVELY_SUPPORTED 
 				? new FullScreenNative() 
 				: new FullScreenFallback();
 
