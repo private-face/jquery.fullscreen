@@ -4,7 +4,7 @@
  * 
  * Released under MIT License
  * 
- * Date: Sun Jan 15 17:51:35 GST 2012
+ * Date: Sun Jan 15 19:43:57 GST 2012
  **/
 ;(function($) {
 
@@ -27,11 +27,7 @@ var IS_NATIVELY_SUPPORTED = defined(document.fullScreen) ||
 			 defined(document.mozFullScreen) ||
 			 defined(document.webkitFullScreen) || defined(document.webkitIsFullScreen);
 			
-var FullScreenAbstract = function(onStateChange) {
-	this.onStateChange = typeof onStateChange === 'function' ? onStateChange : $.noop;
-	this.__state = {
-		fullscreen: false
-	};
+var FullScreenAbstract = function() {
 	this.__options = null;
 	this._fullScreenElement = null;
 	this.__savedStyles = {};
@@ -70,7 +66,6 @@ FullScreenAbstract.prototype = {
 		}
 	},
 	_init: function() {
-		// this._fullScreenChange();
 	},
 	_fullScreenChange: function() {
 		if (!this.isFullScreen()) {
@@ -79,9 +74,9 @@ FullScreenAbstract.prototype = {
 			this._triggerEvents();
 			this._fullScreenElement = null;
 		} else {
+			this._preventDocumentScroll();
 			this._triggerEvents();
 		}
-		this.state('fullscreen', this.isFullScreen());
 	},
 	_fullScreenError: function() {
 		this._revertStyles();
@@ -113,25 +108,14 @@ FullScreenAbstract.prototype = {
 			$elem.removeClass(this.__options.toggleClass);
 		}
 	},
-	// get/set with onchange notification
-	state: function(key, value) {
-		if (!defined(key)) {
-			return;
-		}
-		if (defined(value) && this.__state[key] !== value) {
-			this.__state[key] = value;
-			this.onStateChange(key, value);
-		}
-		return this.__state[key];
-	},
-	requestFullScreen: function(elem, options) {
+	open: function(elem, options) {
 		// do nothing if request is for already fullscreened element
 		if (elem === this._fullScreenElement) {
 			return;
 		}
 		// exit active fullscreen before opening another one
 		if (this.isFullScreen()) {
-			this.exitFullScreen();
+			this.exit();
 		}
 		// save fullscreened element
 		this._fullScreenElement = elem;
@@ -139,18 +123,14 @@ FullScreenAbstract.prototype = {
 		this.__options = $.extend(true, {}, this.__DEFAULT_OPTIONS, options);
 		// save current element styles and apply new
 		this._saveAndApplyStyles();
-		// prevent document from scrolling
-		this._preventDocumentScroll();
 	},
-	getFullScreenElement: function() {
-		return this._fullScreenElement;
-	},
+	exit: null,
 	isFullScreen: null,
 	isNativelySupported: function() {
 		return IS_NATIVELY_SUPPORTED;
 	}
 };
-var FullScreenNative = function(onStateChange) {
+var FullScreenNative = function() {
 	FullScreenNative._super.constructor.apply(this, arguments);
 };
 
@@ -162,13 +142,13 @@ extend(FullScreenNative, FullScreenAbstract, {
 			.bind('fullscreenchange mozfullscreenchange webkitfullscreenchange', $.proxy(this._fullScreenChange, this))
 			.bind('fullscreenerror mozfullscreenerror webkitfullscreenerror', $.proxy(this._fullScreenError, this));
 	},
-	requestFullScreen: function(elem, options) {
-		FullScreenNative._super.requestFullScreen.apply(this, arguments);
+	open: function(elem, options) {
+		FullScreenNative._super.open.apply(this, arguments);
 
-		var requestFS = elem.requestFullScreen || elem.mozRequestFullScreen || elem.webkitRequestFullScreen;
+		var requestFS = elem.open || elem.mozRequestFullScreen || elem.webkitRequestFullScreen;
 		requestFS.call(elem);
 	},
-	exitFullScreen: function() {
+	exit: function() {
 		var cancelFullScreen = document.cancelFullScreen || document.mozCancelFullScreen || document.webkitCancelFullScreen;
 		cancelFullScreen.call(document);
 	},
@@ -212,7 +192,7 @@ extend(FullScreenFallback, FullScreenAbstract, {
 			}
 		}
 
-		this.exitFullScreen();
+		this.exit();
 		return false; // ?
 	},
 	_init: function() {
@@ -220,12 +200,12 @@ extend(FullScreenFallback, FullScreenAbstract, {
 		
 		$(document).delegate('*', 'keydown.fullscreen', $.proxy(this.__keydownHandler, this)); // use delegateFirst?
 	},
-	requestFullScreen: function(elem) {
-		FullScreenFallback._super.requestFullScreen.apply(this, arguments);
+	open: function(elem) {
+		FullScreenFallback._super.open.apply(this, arguments);
 		this.__isFullScreen = true;
 		this._fullScreenChange();
 	},
-	exitFullScreen: function() {
+	exit: function() {
 		this.__isFullScreen = false;
 		this._fullScreenChange();
 	},
@@ -233,7 +213,7 @@ extend(FullScreenFallback, FullScreenAbstract, {
 		return this.__isFullScreen;
 	}
 });
-$.fullscreen = IS_NATIVELY_SUPPORTED 
+$.fullscreen = !IS_NATIVELY_SUPPORTED 
 				? new FullScreenNative() 
 				: new FullScreenFallback();
 
@@ -250,7 +230,7 @@ $.fn.fullscreen = function(options) {
 	delete options.overflow;
 
 	if (elem) {
-		$.fullscreen.requestFullScreen(elem, options);
+		$.fullscreen.open(elem, options);
 	}
 
 	return this;
