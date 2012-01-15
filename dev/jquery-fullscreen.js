@@ -3,11 +3,11 @@ $.fullscreen = IS_NATIVELY_SUPPORTED
 				: new FullScreenFallback();
 
 $.fn.fullscreen = function(options) {
-	var elem = this.first()[0];
+	var elem = this[0];
 
 	options = $.extend({
-		toggleClass: null, /* string */
-		overflow: 'hidden' /* hidden|auto */
+		toggleClass: null,
+		overflow: 'hidden'
 	}, options);
 	options.styles = {
 		overflow: options.overflow
