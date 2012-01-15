@@ -1,4 +1,4 @@
-FullScreenFallback = function() {
+var FullScreenFallback = function() {
 	FullScreenFallback._super.constructor.apply(this, arguments);
 };
 

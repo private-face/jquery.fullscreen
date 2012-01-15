@@ -1,4 +1,4 @@
-FullScreenAbstract = function(onStateChange) {
+var FullScreenAbstract = function(onStateChange) {
 	this.onStateChange = typeof onStateChange === 'function' ? onStateChange : $.noop;
 	this.__state = {
 		fullscreen: false
