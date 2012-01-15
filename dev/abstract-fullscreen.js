@@ -2,11 +2,7 @@ var IS_NATIVELY_SUPPORTED = defined(document.fullScreen) ||
 			 defined(document.mozFullScreen) ||
 			 defined(document.webkitFullScreen) || defined(document.webkitIsFullScreen);
 			
-var FullScreenAbstract = function(onStateChange) {
-	this.onStateChange = typeof onStateChange === 'function' ? onStateChange : $.noop;
-	this.__state = {
-		fullscreen: false
-	};
+var FullScreenAbstract = function() {
 	this.__options = null;
 	this._fullScreenElement = null;
 	this.__savedStyles = {};
@@ -45,7 +41,6 @@ FullScreenAbstract.prototype = {
 		}
 	},
 	_init: function() {
-		// this._fullScreenChange();
 	},
 	_fullScreenChange: function() {
 		if (!this.isFullScreen()) {
@@ -54,9 +49,9 @@ FullScreenAbstract.prototype = {
 			this._triggerEvents();
 			this._fullScreenElement = null;
 		} else {
+			this._preventDocumentScroll();
 			this._triggerEvents();
 		}
-		this.state('fullscreen', this.isFullScreen());
 	},
 	_fullScreenError: function() {
 		this._revertStyles();
@@ -88,17 +83,6 @@ FullScreenAbstract.prototype = {
 			$elem.removeClass(this.__options.toggleClass);
 		}
 	},
-	// get/set with onchange notification
-	state: function(key, value) {
-		if (!defined(key)) {
-			return;
-		}
-		if (defined(value) && this.__state[key] !== value) {
-			this.__state[key] = value;
-			this.onStateChange(key, value);
-		}
-		return this.__state[key];
-	},
 	open: function(elem, options) {
 		// do nothing if request is for already fullscreened element
 		if (elem === this._fullScreenElement) {
@@ -114,8 +98,6 @@ FullScreenAbstract.prototype = {
 		this.__options = $.extend(true, {}, this.__DEFAULT_OPTIONS, options);
 		// save current element styles and apply new
 		this._saveAndApplyStyles();
-		// prevent document from scrolling
-		this._preventDocumentScroll();
 	},
 	exit: null,
 	isFullScreen: null,
