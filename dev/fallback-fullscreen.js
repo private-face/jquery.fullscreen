@@ -6,22 +6,15 @@ extend(FullScreenFallback, FullScreenAbstract, {
 	__isFullScreen: false,
 	__allowedKeys: [
 		// left arrow, right arrow, up arrow, down arrow, space, page up, page down, home, end, tab,
-		37, 39, 38, 40, 32, 0, 0, 0, 0, 9,
-		// meta, shift, control, alt
-		224, 16, 17, 18
+		37, 39, 38, 40, 32, 33, 34, 36, 35, 9,
+		// shift, control, alt, cmd, win
+		16, 17, 18, 224, 91
 	],
 	__keydownHandler: function(e) {
-		if (!this.isFullScreen()) {
+		if (!this.isFullScreen() || $.inArray(e.which, this.__allowedKeys) !== -1) {
 			return true;
 		}
 		
-		var key = e.which;
-		for (var i = 0; i < this.__allowedKeys.length; ++i) {
-			if (key === this.__allowedKeys[i]) {
-				return true;
-			}
-		}
-
 		this.exit();
 		return false; // ?
 	},
