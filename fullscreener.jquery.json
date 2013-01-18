@@ -9,7 +9,7 @@
 		"chrome",
 		"safari"
 	],
-	"version": "0.2",
+	"version": "0.2.0",
 	"author": {
 		"name": "Vladimir Zhuravlev",
 		"url": "https://github.com/private-face/"
