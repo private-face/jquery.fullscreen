@@ -1,10 +1,10 @@
 /*
- * jQuery.fullscreen library v0.2
+ * jQuery.fullscreen library v0.2.1
  * Copyright (c) 2012 Vladimir Zhuravlev
  * 
  * Released under MIT License
  * 
- * Date: Fri Jan 18 23:47:49 ICT 2013
+ * Date: Sat Jan 19 00:45:33 ICT 2013
  **/
 ;(function($) {
 

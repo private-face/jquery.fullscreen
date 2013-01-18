@@ -5,7 +5,7 @@
 	<title>jQuery.fullscreen example</title>
 	<link rel="stylesheet" href="styles.css" type="text/css" media="screen">
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script type="text/javascript" src="../release/jquery.fullscreen-0.1.min.js"></script>
+	<script type="text/javascript" src="../release/jquery.fullscreen-0.2.1.min.js"></script>
 </head>
 <body>
 	<div id="main">
@@ -14,7 +14,7 @@
 			<p>
 				jQuery.fullscreen is a jQuery plugin which allows you to open any element on the page in full-screen mode. If this feature is not supported by the browser then element will be just stretched to fill the screen without switching to full-screen.
 			</p>
-			
+
 			<div id="fullscreen">
 				<h2>Example</h2>
 				<p>Your browser <span id="support">doesn't support</span> FullScreen API.</p>
@@ -27,19 +27,19 @@
 				$(function() {
 					// check native support
 					$('#support').text($.fullscreen.isNativelySupported() ? 'supports' : 'doesn\'t support');
-					
+
 					// open in fullscreen
 					$('#fullscreen .requestfullscreen').click(function() {
 						$('#fullscreen').fullscreen();
 						return false;
 					});
-					
+
 					// exit fullscreen
 					$('#fullscreen .exitfullscreen').click(function() {
 						$.fullscreen.exit();
 						return false;
 					});
-					
+
 					// document's event
 					$(document).bind('fscreenchange', function(e, state, elem) {
 						// if we currently in fullscreen mode
@@ -50,7 +50,7 @@
 							$('#fullscreen .requestfullscreen').show();
 							$('#fullscreen .exitfullscreen').hide();
 						}
-						
+
 						$('#state').text($.fullscreen.isFullScreen() ? '' : 'not');
 					});
 				});
@@ -62,7 +62,7 @@
 		$(function() {
 			$('.example').each(function() {
 				var $el = $(this);
-				
+
 				$el.find('code').text($el.find('script').text().replace(/\n\t\t\t\t/gm, '\n').replace(/^\n/gm, ''));
 			});
 		});
