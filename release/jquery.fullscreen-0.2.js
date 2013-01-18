@@ -1,10 +1,10 @@
 /*
- * jQuery.fullscreen library v0.1
+ * jQuery.fullscreen library v0.2
  * Copyright (c) 2012 Vladimir Zhuravlev
  * 
  * Released under MIT License
  * 
- * Date: Sun Jan 15 19:53:55 GST 2012
+ * Date: Fri Jan 18 23:47:49 ICT 2013
  **/
 ;(function($) {
 
@@ -173,32 +173,38 @@ var FullScreenFallback = function() {
 };
 
 extend(FullScreenFallback, FullScreenAbstract, {
+	__JQ_LT_17: parseFloat($.fn.jquery) < 1.7,
 	__isFullScreen: false,
 	__allowedKeys: [
 		// left arrow, right arrow, up arrow, down arrow, space, page up, page down, home, end, tab,
-		37, 39, 38, 40, 32, 0, 0, 0, 0, 9,
-		// meta, shift, control, alt
-		224, 16, 17, 18
+		37, 39, 38, 40, 32, 33, 34, 36, 35, 9,
+		// shift, control, alt, cmd, win
+		16, 17, 18, 224, 91
 	],
+	__delegateKeydownHandler: function() {
+		var $doc = $(document);
+		$doc.delegate('*', 'keydown.fullscreen', $.proxy(this.__keydownHandler, this));
+		var data = JQ_LT_17 ? $doc.data('events') : $._data(document).events;
+		var events = data['keydown'];
+
+		if (!JQ_LT_17) {
+			events.splice(0, 0, events.splice(events.delegateCount - 1, 1)[0]);
+		} else {
+			data.live.unshift(data.live.pop());
+		}
+	},
 	__keydownHandler: function(e) {
-		if (!this.isFullScreen()) {
+		if (!this.isFullScreen() || $.inArray(e.which, this.__allowedKeys) !== -1) {
 			return true;
 		}
 		
-		var key = e.which;
-		for (var i = 0; i < this.__allowedKeys.length; ++i) {
-			if (key === this.__allowedKeys[i]) {
-				return true;
-			}
-		}
-
 		this.exit();
 		return false; // ?
 	},
 	_init: function() {
 		FullScreenFallback._super._init.apply(this, arguments);
-		
-		$(document).delegate('*', 'keydown.fullscreen', $.proxy(this.__keydownHandler, this)); // use delegateFirst?
+		this.__delegateKeydownHandler();
+
 	},
 	open: function(elem) {
 		FullScreenFallback._super.open.apply(this, arguments);
@@ -218,11 +224,11 @@ $.fullscreen = IS_NATIVELY_SUPPORTED
 				: new FullScreenFallback();
 
 $.fn.fullscreen = function(options) {
-	var elem = this.first()[0];
+	var elem = this[0];
 
 	options = $.extend({
-		toggleClass: null, /* string */
-		overflow: 'hidden' /* hidden|auto */
+		toggleClass: null,
+		overflow: 'hidden'
 	}, options);
 	options.styles = {
 		overflow: options.overflow
