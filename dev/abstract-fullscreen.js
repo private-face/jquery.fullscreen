@@ -1,7 +1,5 @@
-var IS_NATIVELY_SUPPORTED = defined(document.fullScreen) ||
-			 defined(document.mozFullScreen) ||
-			 defined(document.webkitFullScreen) || defined(document.webkitIsFullScreen);
-			
+var IS_NATIVELY_SUPPORTED = defined(native('fullscreenElement'));
+
 var FullScreenAbstract = function() {
 	this.__options = null;
 	this._fullScreenElement = null;

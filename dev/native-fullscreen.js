@@ -1,38 +1,35 @@
 var FullScreenNative = function() {
 	FullScreenNative._super.constructor.apply(this, arguments);
+	this.exit = $.proxy(native('exitFullscreen'), document);
 };
 
 extend(FullScreenNative, FullScreenAbstract, {
+	VENDOR_PREFIXES: ['', 'o', 'ms', 'moz', 'webkit'],
 	_init: function() {
 		FullScreenNative._super._init.apply(this, arguments);
-
 		$(document)
-			.bind('fullscreenchange mozfullscreenchange webkitfullscreenchange', $.proxy(this._fullScreenChange, this))
-			.bind('fullscreenerror mozfullscreenerror webkitfullscreenerror', $.proxy(this._fullScreenError, this));
+			.bind(this._prefixedString('fullscreenchange'), $.proxy(this._fullScreenChange, this))
+			.bind(this._prefixedString('fullscreenerror'), $.proxy(this._fullScreenError, this));
+	},
+	_prefixedString: function(str) {
+		return $.map(this.VENDOR_PREFIXES, function(s) {
+			return s + str;
+		}).join(' ');
 	},
 	open: function(elem, options) {
 		FullScreenNative._super.open.apply(this, arguments);
-
-		var requestFS = elem.open || elem.mozRequestFullScreen || elem.webkitRequestFullScreen;
+		var requestFS = native(elem, 'requestFullscreen');
 		requestFS.call(elem);
 	},
-	exit: function() {
-		var cancelFullScreen = document.cancelFullScreen || document.mozCancelFullScreen || document.webkitCancelFullScreen;
-		cancelFullScreen.call(document);
-	},
+	exit: $.noop,
 	isFullScreen: function() {
-		if (document.fullScreenElement && document.fullScreenElement === null ||
-			defined(document.mozFullScreen) && !document.mozFullScreen ||
-			defined(document.webkitIsFullScreen) && !document.webkitIsFullScreen) {
-				return false;
-		}
-		return true;
+		return native('fullscreenElement') !== null;
 	}/*,
 	getFullScreenElement: function() {
 		// document.fullScreenElement and document.webkitFullScreenElement don't work in webkit yet
 		return defined(document.fullScreenElement) && document.fullScreenElement ||
 			defined(document.mozFullScreenElement) && document.mozFullScreenElement ||
-			defined(document.webkitFullScreenElement) && document.webkitFullScreenElement || 
+			defined(document.webkitFullScreenElement) && document.webkitFullScreenElement ||
 			null;
 	}*/
 });
