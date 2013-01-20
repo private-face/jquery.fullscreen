@@ -1,8 +1,8 @@
 h1. jQuery.fullscreen
 
-jQuery.fullscreen is a jQuery plugin which allows you to open any element on the page in fullscreen mode. If this feature is not supported by the browser then element will be just stretched to fill the screen without switching to fullscreen.
+jQuery.fullscreen allows you to open any element on the page in fullscreen mode without using Flash in all modern browsers (Firefox, Chrome, Safari, Opera). If this feature is not supported by the browser then element will be just stretched to fill the screen without switching to fullscreen.
 
-Currently "Fullscreen API":http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html#api is natively supported in Chrome 15+, Safari 5.1+ and Firefox 10. It is also present in Firefox 9.0, but it is disabled by default. You can be enable it by setting @fullscreen-api.enabled@ to @true@ in @about:config@.
+"Fullscreen API":http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html#api is natively supported in Chrome 15+, Safari 5.1+, Firefox 10+ and Opera 12.1+. It is also present in Firefox 9.0, but it is disabled by default. You can be enable it by setting @fullscreen-api.enabled@ to @true@ in @about:config@.
 
 h2. Usage
 
@@ -36,7 +36,7 @@ h3. Events
 
 h4. fscreenchange
 
-@fscreenchange@ event is sent to @window.document@ when some element on the page changes its 'fullscreen' state. Three parameters are passed to an event's handler: 
+@fscreenchange@ event is sent to @window.document@ when some element on the page changes its 'fullscreen' state. Three parameters are passed to an event's handler:
 * jQuery.Event object
 * fullscreen state (true or false)
 * Element
@@ -52,11 +52,11 @@ h3. Native
 * Firefox 10+
 * Chrome 15+
 * Safari 5.1+
+* Opera 12.1+
 
 h3. Fallback
 
 * IE 8.0+ (Should work in IE7 as well, perhaps with some minor issues)
-* Opera
 
 h2. Read more
 
@@ -67,10 +67,10 @@ h2. License
 
 h3. MIT License
 
-Copyright (c) 2012 Vladimir Zhuravlev
+Copyright (c) 2013 Vladimir Zhuravlev
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. 
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

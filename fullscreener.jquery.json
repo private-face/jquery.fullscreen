@@ -1,13 +1,14 @@
 {
 	"name": "fullscreener",
 	"title": "jQuery Fullscreen",
-	"description": "jQuery plugin which allows you to open any element on the page in fullscreen mode without using Flash in all modern browsers (Firefox, Chrome, Safari). jQuery Fullscreen unifies Fullscreen API implementations in different browsers and provides fallback for old ones.",
+	"description": "jQuery plugin which allows you to open any element on the page in fullscreen mode without using Flash in all modern browsers (Firefox, Chrome, Safari, Opera). jQuery Fullscreen unifies Fullscreen API implementations in different browsers and provides fallback for old ones.",
 	"keywords": [
 		"fullscreen",
 		"firefox",
 		"webkit",
 		"chrome",
-		"safari"
+		"safari",
+		"opera"
 	],
 	"version": "0.2.1",
 	"author": {
