@@ -1,10 +1,10 @@
 /*
- * jQuery.fullscreen library v0.3.0
+ * jQuery.fullscreen library v0.3.1
  * Copyright (c) 2013 Vladimir Zhuravlev
  *
  * Released under MIT License
  *
- * Date: Sun Jan 20 15:39:38 ICT 2013
+ * Date: Tue Jan 29 20:37:02 ICT 2013
  **/
 ;(function($) {
 
@@ -207,10 +207,10 @@ extend(FullScreenFallback, FullScreenAbstract, {
 	__delegateKeydownHandler: function() {
 		var $doc = $(document);
 		$doc.delegate('*', 'keydown.fullscreen', $.proxy(this.__keydownHandler, this));
-		var data = JQ_LT_17 ? $doc.data('events') : $._data(document).events;
+		var data = this.__JQ_LT_17 ? $doc.data('events') : $._data(document).events;
 		var events = data['keydown'];
 
-		if (!JQ_LT_17) {
+		if (!this.__JQ_LT_17) {
 			events.splice(0, 0, events.splice(events.delegateCount - 1, 1)[0]);
 		} else {
 			data.live.unshift(data.live.pop());
