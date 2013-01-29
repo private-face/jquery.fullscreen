@@ -14,10 +14,10 @@ extend(FullScreenFallback, FullScreenAbstract, {
 	__delegateKeydownHandler: function() {
 		var $doc = $(document);
 		$doc.delegate('*', 'keydown.fullscreen', $.proxy(this.__keydownHandler, this));
-		var data = JQ_LT_17 ? $doc.data('events') : $._data(document).events;
+		var data = this.__JQ_LT_17 ? $doc.data('events') : $._data(document).events;
 		var events = data['keydown'];
 
-		if (!JQ_LT_17) {
+		if (!this.__JQ_LT_17) {
 			events.splice(0, 0, events.splice(events.delegateCount - 1, 1)[0]);
 		} else {
 			data.live.unshift(data.live.pop());
