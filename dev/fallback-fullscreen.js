@@ -5,18 +5,11 @@ var FullScreenFallback = function() {
 extend(FullScreenFallback, FullScreenAbstract, {
 	__JQ_LT_17: parseFloat($.fn.jquery) < 1.7,
 	__isFullScreen: false,
-	__allowedKeys: [
-		// left arrow, right arrow, up arrow, down arrow, space, page up, page down, home, end, tab,
-		37, 39, 38, 40, 32, 33, 34, 36, 35, 9,
-		// shift, control, alt, cmd, win
-		16, 17, 18, 224, 91
-	],
 	__delegateKeydownHandler: function() {
 		var $doc = $(document);
 		$doc.delegate('*', 'keydown.fullscreen', $.proxy(this.__keydownHandler, this));
 		var data = this.__JQ_LT_17 ? $doc.data('events') : $._data(document).events;
 		var events = data['keydown'];
-
 		if (!this.__JQ_LT_17) {
 			events.splice(0, 0, events.splice(events.delegateCount - 1, 1)[0]);
 		} else {
@@ -24,12 +17,11 @@ extend(FullScreenFallback, FullScreenAbstract, {
 		}
 	},
 	__keydownHandler: function(e) {
-		if (!this.isFullScreen() || $.inArray(e.which, this.__allowedKeys) !== -1) {
-			return true;
+		if (this.isFullScreen() && e.which === 27) {
+			this.exit();
+			return return false;
 		}
-		
-		this.exit();
-		return false; // ?
+		return true;
 	},
 	_init: function() {
 		FullScreenFallback._super._init.apply(this, arguments);
