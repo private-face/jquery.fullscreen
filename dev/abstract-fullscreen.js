@@ -51,9 +51,12 @@ FullScreenAbstract.prototype = {
 			this._triggerEvents();
 		}
 	},
-	_fullScreenError: function() {
+	_fullScreenError: function(e) {
 		this._revertStyles();
 		this._fullScreenElement = null;
+		if (e) {
+			$(document).trigger('fscreenerror', [e]);
+		}
 	},
 	_triggerEvents: function() {
 		$(this._fullScreenElement).trigger(this.isFullScreen() ? 'fscreenopen' : 'fscreenclose');
