@@ -45,6 +45,14 @@ h4. fscreenopen/fscreenclose
 
 @fscreenopen@ and @fscreenclose@ events are sent to an element when it's being opened in fullscreen (or exited fullscreen mode).
 
+h2. Serurity notes
+
+Due to security reasons, calls like @$(...).fullscreen()@, @$.fullscreen.open()@, and @$.fullscreen.close()@ are allowed only inside *user generated event* (such as click, keydown, etc...). This means that the following code will not work:
+<pre><code>$(function() {
+		$('body').fullscreen();
+	});
+</code></pre>because fullscreen here is called directly without any action from user.
+
 h2. Browser support
 
 h3. Native
