@@ -53,6 +53,10 @@ $(function() {
 				expect(fscreenOpen).toBeTruthy();
 			});
 
+			it('body should be passed in "fscreenopen" as current fullscreen element', function() {
+				expect(fscreenElement).toBe(document.body);
+			});
+
 			// check browser is in fs mode
 			it('should be in fullscreen mode', function() {
 				expect($.fullscreen.isFullScreen()).toBeTruthy();
@@ -60,7 +64,7 @@ $(function() {
 
 			// check fs element
 			it('body should be current fullscreen element', function() {
-				expect(fscreenElement).toBe(document.body);
+				expect($.fullscreen.element()).toBe(document.body);
 			});
 
 			// check fs element has class 'fscreen'
@@ -91,6 +95,9 @@ $(function() {
 				expect($.fullscreen.isFullScreen()).toBeFalsy();
 			});
 
+			it('current fullscreen element should be null', function() {
+				expect($.fullscreen.element()).toBe(null);
+			});
 			// check exfs element has no class 'fscreen'
 			it('body should not have "fscreen" class', function() {
 				expect($('body').hasClass('fscreen')).toBeFalsy();
