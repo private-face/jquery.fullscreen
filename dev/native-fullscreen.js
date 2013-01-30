@@ -24,12 +24,8 @@ extend(FullScreenNative, FullScreenAbstract, {
 	exit: $.noop,
 	isFullScreen: function() {
 		return native('fullscreenElement') !== null;
-	}/*,
-	getFullScreenElement: function() {
-		// document.fullScreenElement and document.webkitFullScreenElement don't work in webkit yet
-		return defined(document.fullScreenElement) && document.fullScreenElement ||
-			defined(document.mozFullScreenElement) && document.mozFullScreenElement ||
-			defined(document.webkitFullScreenElement) && document.webkitFullScreenElement ||
-			null;
-	}*/
+	},
+	element: function() {
+		return native('fullscreenElement');
+	}
 });

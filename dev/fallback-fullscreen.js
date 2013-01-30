@@ -19,7 +19,7 @@ extend(FullScreenFallback, FullScreenAbstract, {
 	__keydownHandler: function(e) {
 		if (this.isFullScreen() && e.which === 27) {
 			this.exit();
-			return return false;
+			return false;
 		}
 		return true;
 	},
@@ -39,5 +39,8 @@ extend(FullScreenFallback, FullScreenAbstract, {
 	},
 	isFullScreen: function() {
 		return this.__isFullScreen;
+	},
+	element: function() {
+		return this.__isFullScreen ? this._fullScreenElement : null;
 	}
 });
