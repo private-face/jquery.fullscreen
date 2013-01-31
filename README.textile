@@ -49,12 +49,12 @@ h4. fscreenerror
 
 @fscreenerror@ event is fired on the @document@ if requested fullscreen operation could not be performed. 
 
-h2. Serurity notes
+h2. Security notes
 
 Due to security reasons, calls like @$(...).fullscreen()@, @$.fullscreen.open()@, and @$.fullscreen.close()@ are allowed only inside *user generated event* (such as click, keydown, etc...). This means that the following code will not work:
 <pre><code>$(function() {
-		$('body').fullscreen();
-	});
+	$('body').fullscreen();
+});
 </code></pre>because fullscreen here is called directly without any action from user.
 
 h2. Browser support
