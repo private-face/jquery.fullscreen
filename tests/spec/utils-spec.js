@@ -37,11 +37,16 @@ describe('Utils', function() {
 
 		// old webkit
 		var oldWebkitcObjDoc = {
+				webkitCurrentFullscreenElement: null,
 				webkitCancelFullscreen: function() {}
 			};
 
 		it('should detect old-webkit "webkitCancelFullscreen" methods as "exitFullscreen"', function() {
 			expect(native(oldWebkitcObjDoc, 'exitFullscreen')).toBeDefined();
+		});
+
+		it('should detect old-webkit "currentFullscreenElement" methods as "fullscreenElement"', function() {
+			expect(native(oldWebkitcObjDoc, 'fullscreenElement')).toBeDefined();
 		});
 
 		// mozilla
