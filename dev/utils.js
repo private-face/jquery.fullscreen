@@ -19,7 +19,8 @@ var SUBST = [
     ['exit', 'cancel'],     // firefox & old webkits expect cancelFullScreen instead of exitFullscreen
     ['screen', 'Screen']    // firefox expects FullScreen instead of Fullscreen
 ];
-var VENDOR_PREFIXES = ['', 'o', 'ms', 'moz', 'webkit'];
+
+var VENDOR_PREFIXES = ['', 'o', 'ms', 'moz', 'webkit', 'webkitCurrent'];
 
 function native(obj, name) {
     var prefixed;
