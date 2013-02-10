@@ -1,10 +1,10 @@
 /*
- * jQuery.fullscreen library v0.3.1
+ * jQuery.fullscreen library v0.3.2
  * Copyright (c) 2013 Vladimir Zhuravlev
  *
  * Released under MIT License
  *
- * Date: Tue Jan 29 20:37:02 ICT 2013
+ * Date: Sun Feb 10 19:32:23 ICT 2013
  **/
 ;(function($) {
 
@@ -29,7 +29,8 @@ var SUBST = [
     ['exit', 'cancel'],     // firefox & old webkits expect cancelFullScreen instead of exitFullscreen
     ['screen', 'Screen']    // firefox expects FullScreen instead of Fullscreen
 ];
-var VENDOR_PREFIXES = ['', 'o', 'ms', 'moz', 'webkit'];
+
+var VENDOR_PREFIXES = ['', 'o', 'ms', 'moz', 'webkit', 'webkitCurrent'];
 
 function native(obj, name) {
     var prefixed;
@@ -104,9 +105,12 @@ FullScreenAbstract.prototype = {
 			this._triggerEvents();
 		}
 	},
-	_fullScreenError: function() {
+	_fullScreenError: function(e) {
 		this._revertStyles();
 		this._fullScreenElement = null;
+		if (e) {
+			$(document).trigger('fscreenerror', [e]);
+		}
 	},
 	_triggerEvents: function() {
 		$(this._fullScreenElement).trigger(this.isFullScreen() ? 'fscreenopen' : 'fscreenclose');
@@ -182,14 +186,10 @@ extend(FullScreenNative, FullScreenAbstract, {
 	exit: $.noop,
 	isFullScreen: function() {
 		return native('fullscreenElement') !== null;
-	}/*,
-	getFullScreenElement: function() {
-		// document.fullScreenElement and document.webkitFullScreenElement don't work in webkit yet
-		return defined(document.fullScreenElement) && document.fullScreenElement ||
-			defined(document.mozFullScreenElement) && document.mozFullScreenElement ||
-			defined(document.webkitFullScreenElement) && document.webkitFullScreenElement ||
-			null;
-	}*/
+	},
+	element: function() {
+		return native('fullscreenElement');
+	}
 });
 var FullScreenFallback = function() {
 	FullScreenFallback._super.constructor.apply(this, arguments);
@@ -198,18 +198,11 @@ var FullScreenFallback = function() {
 extend(FullScreenFallback, FullScreenAbstract, {
 	__JQ_LT_17: parseFloat($.fn.jquery) < 1.7,
 	__isFullScreen: false,
-	__allowedKeys: [
-		// left arrow, right arrow, up arrow, down arrow, space, page up, page down, home, end, tab,
-		37, 39, 38, 40, 32, 33, 34, 36, 35, 9,
-		// shift, control, alt, cmd, win
-		16, 17, 18, 224, 91
-	],
 	__delegateKeydownHandler: function() {
 		var $doc = $(document);
 		$doc.delegate('*', 'keydown.fullscreen', $.proxy(this.__keydownHandler, this));
 		var data = this.__JQ_LT_17 ? $doc.data('events') : $._data(document).events;
 		var events = data['keydown'];
-
 		if (!this.__JQ_LT_17) {
 			events.splice(0, 0, events.splice(events.delegateCount - 1, 1)[0]);
 		} else {
@@ -217,12 +210,11 @@ extend(FullScreenFallback, FullScreenAbstract, {
 		}
 	},
 	__keydownHandler: function(e) {
-		if (!this.isFullScreen() || $.inArray(e.which, this.__allowedKeys) !== -1) {
-			return true;
+		if (this.isFullScreen() && e.which === 27) {
+			this.exit();
+			return false;
 		}
-		
-		this.exit();
-		return false; // ?
+		return true;
 	},
 	_init: function() {
 		FullScreenFallback._super._init.apply(this, arguments);
@@ -240,6 +232,9 @@ extend(FullScreenFallback, FullScreenAbstract, {
 	},
 	isFullScreen: function() {
 		return this.__isFullScreen;
+	},
+	element: function() {
+		return this.__isFullScreen ? this._fullScreenElement : null;
 	}
 });
 $.fullscreen = IS_NATIVELY_SUPPORTED 
