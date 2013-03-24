@@ -1,10 +1,10 @@
 /*
- * jQuery.fullscreen library v0.3.2
+ * jQuery.fullscreen library v0.3.3
  * Copyright (c) 2013 Vladimir Zhuravlev
  *
- * Released under MIT License
+ * @license https://github.com/private-face/jquery.fullscreen/blob/master/LICENSE
  *
- * Date: Sun Feb 10 19:32:23 ICT 2013
+ * Date: Sun Mar 24 19:34:04 NOVT 2013
  **/
 ;(function($) {
 
@@ -58,41 +58,32 @@ var FullScreenAbstract = function() {
 	this.__options = null;
 	this._fullScreenElement = null;
 	this.__savedStyles = {};
-
-	this._init();
 };
 
 FullScreenAbstract.prototype = {
-	__DEFAULT_OPTIONS: {
+	_DEFAULT_OPTIONS: {
 		styles: {
-			'width': '100%',
-			'height': '100%',
-			'position': 'fixed',
-			'zIndex': '2147483647',
 			'boxSizing': 'border-box',
 			'MozBoxSizing': 'border-box',
-			'WebkitBoxSizing': 'border-box',
-			'left': 0,
-			'top': 0,
-			'bottom': 0,
-			'right': 0
+			'WebkitBoxSizing': 'border-box'
 		},
-		toggleClass: '',
+		toggleClass: null,
 		documentScroll: false
 	},
 	__documentOverflow: '',
+	__htmlOverflow: '',
 	_preventDocumentScroll: function() {
 		if (!this.__options.documentScroll) {
-			this.__documentOverflow = $('body').css('overflow');
-			$('body').css('overflow', 'hidden');
+			this.__documentOverflow = $('body')[0].style.overflow;
+			this.__htmlOverflow = $('html')[0].style.overflow;
+			$('body, html').css('overflow', 'hidden');
 		}
 	},
 	_allowDocumentScroll: function() {
 		if (!this.__options.documentScroll) {
-			$('body').css('overflow', this.__documentOverflow);
+			$('body')[0].style.overflow = this.__documentOverflow;
+			$('html')[0].style.overflow = this.__htmlOverflow;
 		}
-	},
-	_init: function() {
 	},
 	_fullScreenChange: function() {
 		if (!this.isFullScreen()) {
@@ -150,7 +141,7 @@ FullScreenAbstract.prototype = {
 		// save fullscreened element
 		this._fullScreenElement = elem;
 		// apply options, if any
-		this.__options = $.extend(true, {}, this.__DEFAULT_OPTIONS, options);
+		this.__options = $.extend(true, {}, this._DEFAULT_OPTIONS, options);
 		// save current element styles and apply new
 		this._saveAndApplyStyles();
 	},
@@ -163,16 +154,19 @@ FullScreenAbstract.prototype = {
 var FullScreenNative = function() {
 	FullScreenNative._super.constructor.apply(this, arguments);
 	this.exit = $.proxy(native('exitFullscreen'), document);
+	this._DEFAULT_OPTIONS = $.extend(true, {}, this._DEFAULT_OPTIONS, {
+		'styles': {
+			'width': '100%',
+			'height': '100%'
+		}
+	});
+	$(document)
+		.bind(this._prefixedString('fullscreenchange'), $.proxy(this._fullScreenChange, this))
+		.bind(this._prefixedString('fullscreenerror'), $.proxy(this._fullScreenError, this));
 };
 
 extend(FullScreenNative, FullScreenAbstract, {
 	VENDOR_PREFIXES: ['', 'o', 'ms', 'moz', 'webkit'],
-	_init: function() {
-		FullScreenNative._super._init.apply(this, arguments);
-		$(document)
-			.bind(this._prefixedString('fullscreenchange'), $.proxy(this._fullScreenChange, this))
-			.bind(this._prefixedString('fullscreenerror'), $.proxy(this._fullScreenError, this));
-	},
 	_prefixedString: function(str) {
 		return $.map(this.VENDOR_PREFIXES, function(s) {
 			return s + str;
@@ -193,6 +187,17 @@ extend(FullScreenNative, FullScreenAbstract, {
 });
 var FullScreenFallback = function() {
 	FullScreenFallback._super.constructor.apply(this, arguments);
+	this._DEFAULT_OPTIONS = $.extend({}, this._DEFAULT_OPTIONS, {
+		'styles': {
+			'position': 'fixed',
+			'zIndex': '2147483647',
+			'left': 0,
+			'top': 0,
+			'bottom': 0,
+			'right': 0
+		}
+	});
+	this.__delegateKeydownHandler();
 };
 
 extend(FullScreenFallback, FullScreenAbstract, {
@@ -216,10 +221,10 @@ extend(FullScreenFallback, FullScreenAbstract, {
 		}
 		return true;
 	},
-	_init: function() {
-		FullScreenFallback._super._init.apply(this, arguments);
-		this.__delegateKeydownHandler();
-
+	_revertStyles: function() {
+		FullScreenFallback._super._revertStyles.apply(this, arguments);
+		// force redraw (fixes bug in IE7 with content dissapearing)
+		this._fullScreenElement.offsetHeight;
 	},
 	open: function(elem) {
 		FullScreenFallback._super.open.apply(this, arguments);
