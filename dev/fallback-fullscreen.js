@@ -34,6 +34,11 @@ extend(FullScreenFallback, FullScreenAbstract, {
 		}
 		return true;
 	},
+	_revertStyles: function() {
+		FullScreenFallback._super._revertStyles.apply(this, arguments);
+		// force redraw (fixes bug in IE7 with content dissapearing)
+		this._fullScreenElement.offsetHeight;
+	},
 	open: function(elem) {
 		FullScreenFallback._super.open.apply(this, arguments);
 		this.__isFullScreen = true;
