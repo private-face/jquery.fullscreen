@@ -28,9 +28,14 @@ h3 {
 }
 
 #fullscreen {
-	background: #fafafa;
 	border: 3px solid #c99;
 	border-radius: 3px;
 	box-shadow: 0 0 1px 1px #CC9999;
 	padding: 0 10px 5px;
+	/* 
+		it is recommended to explicitly set 'color' and 'background-color' properties for "fullscreened" object, 
+		because otherwise Opera will use default styles "background-color: #000000; color: #fffff;".
+	 */
+	background: #fafafa;
+	color: inherit;	
 }
