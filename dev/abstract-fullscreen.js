@@ -4,8 +4,6 @@ var FullScreenAbstract = function() {
 	this.__options = null;
 	this._fullScreenElement = null;
 	this.__savedStyles = {};
-
-	this._init();
 };
 
 FullScreenAbstract.prototype = {
@@ -15,7 +13,7 @@ FullScreenAbstract.prototype = {
 			'MozBoxSizing': 'border-box',
 			'WebkitBoxSizing': 'border-box'
 		},
-		toggleClass: '',
+		toggleClass: null,
 		documentScroll: false
 	},
 	__documentOverflow: '',
@@ -32,8 +30,6 @@ FullScreenAbstract.prototype = {
 			$('body')[0].style.overflow = this.__documentOverflow;
 			$('html')[0].style.overflow = this.__htmlOverflow;
 		}
-	},
-	_init: function() {
 	},
 	_fullScreenChange: function() {
 		if (!this.isFullScreen()) {

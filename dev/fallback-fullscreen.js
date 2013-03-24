@@ -10,6 +10,7 @@ var FullScreenFallback = function() {
 			'right': 0
 		}
 	});
+	this.__delegateKeydownHandler();
 };
 
 extend(FullScreenFallback, FullScreenAbstract, {
@@ -32,10 +33,6 @@ extend(FullScreenFallback, FullScreenAbstract, {
 			return false;
 		}
 		return true;
-	},
-	_init: function() {
-		FullScreenFallback._super._init.apply(this, arguments);
-		this.__delegateKeydownHandler();
 	},
 	open: function(elem) {
 		FullScreenFallback._super.open.apply(this, arguments);
