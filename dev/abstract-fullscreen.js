@@ -11,8 +11,6 @@ var FullScreenAbstract = function() {
 FullScreenAbstract.prototype = {
 	__DEFAULT_OPTIONS: {
 		styles: {
-			'width': '100%',
-			'height': '100%',
 			'position': 'fixed',
 			'zIndex': '2147483647',
 			'boxSizing': 'border-box',
@@ -27,15 +25,18 @@ FullScreenAbstract.prototype = {
 		documentScroll: false
 	},
 	__documentOverflow: '',
+	__htmlOverflow: '',
 	_preventDocumentScroll: function() {
 		if (!this.__options.documentScroll) {
-			this.__documentOverflow = $('body').css('overflow');
-			$('body').css('overflow', 'hidden');
+			this.__documentOverflow = $('body')[0].style.overflow;
+			this.__htmlOverflow = $('html')[0].style.overflow;
+			$('body, html').css('overflow', 'hidden');
 		}
 	},
 	_allowDocumentScroll: function() {
 		if (!this.__options.documentScroll) {
-			$('body').css('overflow', this.__documentOverflow);
+			$('body')[0].style.overflow = this.__documentOverflow;
+			$('html')[0].style.overflow = this.__htmlOverflow;
 		}
 	},
 	_init: function() {
