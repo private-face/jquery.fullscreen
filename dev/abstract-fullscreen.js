@@ -9,17 +9,11 @@ var FullScreenAbstract = function() {
 };
 
 FullScreenAbstract.prototype = {
-	__DEFAULT_OPTIONS: {
+	_DEFAULT_OPTIONS: {
 		styles: {
-			'position': 'fixed',
-			'zIndex': '2147483647',
 			'boxSizing': 'border-box',
 			'MozBoxSizing': 'border-box',
-			'WebkitBoxSizing': 'border-box',
-			'left': 0,
-			'top': 0,
-			'bottom': 0,
-			'right': 0
+			'WebkitBoxSizing': 'border-box'
 		},
 		toggleClass: '',
 		documentScroll: false
@@ -97,7 +91,7 @@ FullScreenAbstract.prototype = {
 		// save fullscreened element
 		this._fullScreenElement = elem;
 		// apply options, if any
-		this.__options = $.extend(true, {}, this.__DEFAULT_OPTIONS, options);
+		this.__options = $.extend(true, {}, this._DEFAULT_OPTIONS, options);
 		// save current element styles and apply new
 		this._saveAndApplyStyles();
 	},

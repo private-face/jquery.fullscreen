@@ -1,6 +1,12 @@
 var FullScreenNative = function() {
 	FullScreenNative._super.constructor.apply(this, arguments);
 	this.exit = $.proxy(native('exitFullscreen'), document);
+	this._DEFAULT_OPTIONS = $.extend(true, {}, this._DEFAULT_OPTIONS, {
+		'styles': {
+			'width': '100%',
+			'height': '100%'
+		}
+	});
 };
 
 extend(FullScreenNative, FullScreenAbstract, {

@@ -1,5 +1,15 @@
 var FullScreenFallback = function() {
 	FullScreenFallback._super.constructor.apply(this, arguments);
+	this._DEFAULT_OPTIONS = $.extend({}, this._DEFAULT_OPTIONS, {
+		'styles': {
+			'position': 'fixed',
+			'zIndex': '2147483647',
+			'left': 0,
+			'top': 0,
+			'bottom': 0,
+			'right': 0
+		}
+	});
 };
 
 extend(FullScreenFallback, FullScreenAbstract, {
@@ -26,7 +36,6 @@ extend(FullScreenFallback, FullScreenAbstract, {
 	_init: function() {
 		FullScreenFallback._super._init.apply(this, arguments);
 		this.__delegateKeydownHandler();
-
 	},
 	open: function(elem) {
 		FullScreenFallback._super.open.apply(this, arguments);
