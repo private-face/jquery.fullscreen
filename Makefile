@@ -24,4 +24,4 @@ combine: $(RESOURCES)
 		${VER} > $(COMBINED)
 
 min: combine
-	uglifyjs $(COMBINED) --comments > $(MINIFIED)
+	uglifyjs2 $(COMBINED) --mangle --compress --comments > $(MINIFIED)
