@@ -1,10 +1,10 @@
 /*
- * jQuery.fullscreen library v0.3.3
+ * jQuery.fullscreen library v0.3.4
  * Copyright (c) 2013 Vladimir Zhuravlev
  *
  * @license https://github.com/private-face/jquery.fullscreen/blob/master/LICENSE
  *
- * Date: Sun Mar 24 19:34:04 NOVT 2013
+ * Date: Thu Apr 18 02:12:59 NOVT 2013
  **/
 ;(function($) {
 
@@ -52,7 +52,13 @@ function native(obj, name) {
     }
 
     return void 0;
-}var IS_NATIVELY_SUPPORTED = defined(native('fullscreenElement'));
+}var ua = navigator.userAgent;
+var fsEnabled = native('fullscreenEnabled');
+var IS_ANDROID_CHROME = ua.indexOf('Android') !== -1 && ua.indexOf('Chrome') !== -1; 
+var IS_NATIVELY_SUPPORTED = 
+		!IS_ANDROID_CHROME &&
+		 defined(native('fullscreenElement')) && 
+		(!defined(fsEnabled) || fsEnabled === true);
 
 var FullScreenAbstract = function() {
 	this.__options = null;
