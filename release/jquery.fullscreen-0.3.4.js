@@ -52,7 +52,9 @@ function native(obj, name) {
     }
 
     return void 0;
-}var ua = navigator.userAgent;
+}
+
+var ua = navigator.userAgent;
 var fsEnabled = native('fullscreenEnabled');
 var IS_ANDROID_CHROME = ua.indexOf('Android') !== -1 && ua.indexOf('Chrome') !== -1; 
 var IS_NATIVELY_SUPPORTED = 
