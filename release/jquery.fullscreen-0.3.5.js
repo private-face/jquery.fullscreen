@@ -1,10 +1,10 @@
 /*
- * jQuery.fullscreen library v0.3.4
+ * jQuery.fullscreen library v0.3.5
  * Copyright (c) 2013 Vladimir Zhuravlev
  *
  * @license https://github.com/private-face/jquery.fullscreen/blob/master/LICENSE
  *
- * Date: Thu Apr 18 02:12:59 NOVT 2013
+ * Date: Fri Jul  5 21:48:38 NOVT 2013
  **/
 ;(function($) {
 
@@ -60,6 +60,9 @@ var IS_NATIVELY_SUPPORTED =
 		 defined(native('fullscreenElement')) && 
 		(!defined(fsEnabled) || fsEnabled === true);
 
+var version = $.fn.jquery.split('.');
+var JQ_LT_17 = (parseInt(version[0]) < 2 && parseInt(version[1]) < 7);
+
 var FullScreenAbstract = function() {
 	this.__options = null;
 	this._fullScreenElement = null;
@@ -73,23 +76,18 @@ FullScreenAbstract.prototype = {
 			'MozBoxSizing': 'border-box',
 			'WebkitBoxSizing': 'border-box'
 		},
-		toggleClass: null,
-		documentScroll: false
+		toggleClass: null
 	},
 	__documentOverflow: '',
 	__htmlOverflow: '',
 	_preventDocumentScroll: function() {
-		if (!this.__options.documentScroll) {
-			this.__documentOverflow = $('body')[0].style.overflow;
-			this.__htmlOverflow = $('html')[0].style.overflow;
-			$('body, html').css('overflow', 'hidden');
-		}
+		this.__documentOverflow = $('body')[0].style.overflow;
+		this.__htmlOverflow = $('html')[0].style.overflow;
+		$('body, html').css('overflow', 'hidden');
 	},
 	_allowDocumentScroll: function() {
-		if (!this.__options.documentScroll) {
-			$('body')[0].style.overflow = this.__documentOverflow;
-			$('html')[0].style.overflow = this.__htmlOverflow;
-		}
+		$('body')[0].style.overflow = this.__documentOverflow;
+		$('html')[0].style.overflow = this.__htmlOverflow;
 	},
 	_fullScreenChange: function() {
 		if (!this.isFullScreen()) {
@@ -207,14 +205,13 @@ var FullScreenFallback = function() {
 };
 
 extend(FullScreenFallback, FullScreenAbstract, {
-	__JQ_LT_17: parseFloat($.fn.jquery) < 1.7,
 	__isFullScreen: false,
 	__delegateKeydownHandler: function() {
 		var $doc = $(document);
 		$doc.delegate('*', 'keydown.fullscreen', $.proxy(this.__keydownHandler, this));
-		var data = this.__JQ_LT_17 ? $doc.data('events') : $._data(document).events;
+		var data = JQ_LT_17 ? $doc.data('events') : $._data(document).events;
 		var events = data['keydown'];
-		if (!this.__JQ_LT_17) {
+		if (!JQ_LT_17) {
 			events.splice(0, 0, events.splice(events.delegateCount - 1, 1)[0]);
 		} else {
 			data.live.unshift(data.live.pop());
@@ -247,8 +244,7 @@ extend(FullScreenFallback, FullScreenAbstract, {
 	element: function() {
 		return this.__isFullScreen ? this._fullScreenElement : null;
 	}
-});
-$.fullscreen = IS_NATIVELY_SUPPORTED 
+});$.fullscreen = IS_NATIVELY_SUPPORTED 
 				? new FullScreenNative() 
 				: new FullScreenFallback();
 
