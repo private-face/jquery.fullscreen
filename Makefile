@@ -9,7 +9,7 @@ RESOURCES = ${BUILD_DIR}/header.js\
 			dev/jquery-fullscreen.js\
 			${BUILD_DIR}/footer.js
 
-LIB_VER = $(shell cat ${BUILD_DIR}/version.txt)
+LIB_VER = $(shell node -e "console.log(JSON.parse(require('fs').readFileSync('fullscreener.jquery.json').toString()).version);")
 VER = sed "s/@VERSION/${LIB_VER}/"
 DATE = $(shell date)
 
