@@ -14,14 +14,13 @@ var FullScreenFallback = function() {
 };
 
 extend(FullScreenFallback, FullScreenAbstract, {
-	__JQ_LT_17: parseFloat($.fn.jquery) < 1.7,
 	__isFullScreen: false,
 	__delegateKeydownHandler: function() {
 		var $doc = $(document);
 		$doc.delegate('*', 'keydown.fullscreen', $.proxy(this.__keydownHandler, this));
-		var data = this.__JQ_LT_17 ? $doc.data('events') : $._data(document).events;
+		var data = JQ_LT_17 ? $doc.data('events') : $._data(document).events;
 		var events = data['keydown'];
-		if (!this.__JQ_LT_17) {
+		if (!JQ_LT_17) {
 			events.splice(0, 0, events.splice(events.delegateCount - 1, 1)[0]);
 		} else {
 			data.live.unshift(data.live.pop());

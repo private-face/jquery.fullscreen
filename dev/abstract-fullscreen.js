@@ -6,6 +6,9 @@ var IS_NATIVELY_SUPPORTED =
 		 defined(native('fullscreenElement')) && 
 		(!defined(fsEnabled) || fsEnabled === true);
 
+var version = $.fn.jquery.split('.');
+var JQ_LT_17 = (parseInt(version[0]) < 2 && parseInt(version[1]) < 7);
+
 var FullScreenAbstract = function() {
 	this.__options = null;
 	this._fullScreenElement = null;
