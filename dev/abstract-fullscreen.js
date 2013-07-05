@@ -22,23 +22,18 @@ FullScreenAbstract.prototype = {
 			'MozBoxSizing': 'border-box',
 			'WebkitBoxSizing': 'border-box'
 		},
-		toggleClass: null,
-		documentScroll: false
+		toggleClass: null
 	},
 	__documentOverflow: '',
 	__htmlOverflow: '',
 	_preventDocumentScroll: function() {
-		if (!this.__options.documentScroll) {
-			this.__documentOverflow = $('body')[0].style.overflow;
-			this.__htmlOverflow = $('html')[0].style.overflow;
-			$('body, html').css('overflow', 'hidden');
-		}
+		this.__documentOverflow = $('body')[0].style.overflow;
+		this.__htmlOverflow = $('html')[0].style.overflow;
+		$('body, html').css('overflow', 'hidden');
 	},
 	_allowDocumentScroll: function() {
-		if (!this.__options.documentScroll) {
-			$('body')[0].style.overflow = this.__documentOverflow;
-			$('html')[0].style.overflow = this.__htmlOverflow;
-		}
+		$('body')[0].style.overflow = this.__documentOverflow;
+		$('html')[0].style.overflow = this.__htmlOverflow;
 	},
 	_fullScreenChange: function() {
 		if (!this.isFullScreen()) {

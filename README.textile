@@ -1,6 +1,6 @@
 h1. jQuery.fullscreen
 
-jQuery.fullscreen allows you to open any element on the page in fullscreen mode without using Flash in all modern browsers (Firefox, Chrome, Safari, Opera). If this feature is not supported by the browser then element will be just stretched to fill the screen without switching to fullscreen.
+jQuery.fullscreen allows you to open any element on the page in fullscreen mode without using Flash in all modern browsers (Firefox, Chrome, Safari, Opera). If this feature is not supported by the browser then element will be just stretched to fit the screen without switching to fullscreen.
 
 "Fullscreen API":http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html#api is natively supported in Chrome 15+, Safari 5.1+, Firefox 10+ and Opera 12.1+. It is also present in Firefox 9.0, but it is disabled by default. You can be enable it by setting @fullscreen-api.enabled@ to @true@ in @about:config@.
 
@@ -23,7 +23,6 @@ h3. Request/exit fullscreen
 Currently the following options are supported:
 * @overflow {'hidden'}@: 'overflow' css-property, which is set to an element when it is being opened in fullscreen;
 * @toggleClass {null}@: class name which is toggled when an element changes its 'fullscreen' state;
-* @documentScroll {false}@: set this options to @true@ if you want to allow document's scroll when fullscreen mode is active.
 
 h3. $.fullscreen object methods
 
