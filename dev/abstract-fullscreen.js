@@ -29,7 +29,9 @@ FullScreenAbstract.prototype = {
 	_preventDocumentScroll: function() {
 		this.__documentOverflow = $('body')[0].style.overflow;
 		this.__htmlOverflow = $('html')[0].style.overflow;
-		$('body, html').css('overflow', 'hidden');
+		if(!$(this._fullScreenElement).is('body')){
+			$('body, html').css('overflow', 'hidden');
+		}
 	},
 	_allowDocumentScroll: function() {
 		$('body')[0].style.overflow = this.__documentOverflow;
