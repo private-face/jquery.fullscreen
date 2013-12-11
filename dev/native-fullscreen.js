@@ -8,12 +8,12 @@ var FullScreenNative = function() {
 		}
 	});
 	$(document)
-		.bind(this._prefixedString('fullscreenchange'), $.proxy(this._fullScreenChange, this))
-		.bind(this._prefixedString('fullscreenerror'), $.proxy(this._fullScreenError, this));
+		.bind(this._prefixedString('fullscreenchange') + ' MSFullscreenChange', $.proxy(this._fullScreenChange, this))
+		.bind(this._prefixedString('fullscreenerror') + ' MSFullscreenError', $.proxy(this._fullScreenError, this));
 };
 
 extend(FullScreenNative, FullScreenAbstract, {
-	VENDOR_PREFIXES: ['', 'o', 'ms', 'moz', 'webkit'],
+	VENDOR_PREFIXES: ['', 'o', 'moz', 'webkit'],
 	_prefixedString: function(str) {
 		return $.map(this.VENDOR_PREFIXES, function(s) {
 			return s + str;
