@@ -1,10 +1,10 @@
 /*
- * jQuery.fullscreen library v0.3.5
+ * jQuery.fullscreen library v0.4.0
  * Copyright (c) 2013 Vladimir Zhuravlev
  *
  * @license https://github.com/private-face/jquery.fullscreen/blob/master/LICENSE
  *
- * Date: Fri Jul  5 21:48:38 NOVT 2013
+ * Date: Wed Dec 11 22:45:17 ICT 2013
  **/
 ;(function($) {
 
@@ -165,12 +165,12 @@ var FullScreenNative = function() {
 		}
 	});
 	$(document)
-		.bind(this._prefixedString('fullscreenchange'), $.proxy(this._fullScreenChange, this))
-		.bind(this._prefixedString('fullscreenerror'), $.proxy(this._fullScreenError, this));
+		.bind(this._prefixedString('fullscreenchange') + ' MSFullscreenChange', $.proxy(this._fullScreenChange, this))
+		.bind(this._prefixedString('fullscreenerror') + ' MSFullscreenError', $.proxy(this._fullScreenError, this));
 };
 
 extend(FullScreenNative, FullScreenAbstract, {
-	VENDOR_PREFIXES: ['', 'o', 'ms', 'moz', 'webkit'],
+	VENDOR_PREFIXES: ['', 'o', 'moz', 'webkit'],
 	_prefixedString: function(str) {
 		return $.map(this.VENDOR_PREFIXES, function(s) {
 			return s + str;
