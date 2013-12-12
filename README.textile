@@ -68,7 +68,7 @@ h3. Native
 
 h3. Fallback
 
-* IE 8–11 (Should work in IE7 as well, perhaps with some minor issues)
+* IE 8–10 (Should work in IE7 as well, perhaps with some minor issues)
 
 h2. Read more
 
