@@ -23,7 +23,7 @@
 			"url": "https://github.com/private-face/jquery.fullscreen/blob/master/LICENSE"
 		}
 	],
-	"homepage": "https://github.com/private-face/jquery.fullscreen",
+	"homepage": "http://private-face.github.io/jquery.fullscreen/",
 	"dependencies": {
 		"jquery": ">=1.6"
 	}
