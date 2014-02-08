@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>jQuery.fullscreen by private-face</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/private-face/jquery.fullscreen">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/private-face/jquery.fullscreen/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/private-face/jquery.fullscreen/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>jQuery.fullscreen</h1>
+          <p>jQuery plugin for opening page elements in fullscreen mode.</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/private-face">private-face</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a name="jqueryfullscreen" class="anchor" href="#jqueryfullscreen"><span class="octicon octicon-link"></span></a>jQuery.fullscreen</h1>
+
+<p>jQuery Fullscreen plugin allows you to open any element on a page in fullscreen mode without using Flash in all modern browsers (Firefox, IE, Chrome, Safari, Opera). If this feature is not supported by the browser then element will be just stretched to fit the screen without switching to fullscreen.</p>
+
+<p><a href="http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html#api">Fullscreen API</a> is natively supported in Chrome 15+, Safari 5.1+, Firefox 10+, Opera 12.1+ and IE 11. It is also present in Firefox 9.0, but it is disabled by default. You can be enable it by setting <code>fullscreen-api.enabled</code> to <code>true</code> in <code>about:config</code>.</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<h3>
+<a name="requestexit-fullscreen" class="anchor" href="#requestexit-fullscreen"><span class="octicon octicon-link"></span></a>Request/exit fullscreen</h3>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"some_selector"</span><span class="nt">&gt;</span>
+    Block to be displayed in fullscreen.
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+    <span class="c1">// open element in fullscreen</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'#some_selector'</span><span class="p">).</span><span class="nx">fullscreen</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
+    <span class="c1">// close fullscreen</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">fullscreen</span><span class="p">.</span><span class="nx">exit</span><span class="p">();</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+
+<p>Currently the following options are supported:</p>
+
+<ul>
+<li>
+<code>overflow {'hidden'}</code>: 'overflow' css-property, which is set to an element when it is being opened in fullscreen;</li>
+<li>
+<code>toggleClass {null}</code>: class name which is toggled when an element changes its 'fullscreen' state;</li>
+</ul><h3>
+<a name="fullscreen-object-methods" class="anchor" href="#fullscreen-object-methods"><span class="octicon octicon-link"></span></a>$.fullscreen object methods</h3>
+
+<ul>
+<li>
+<code>$.fullscreen.open(element[, options])</code>: equivalent to <code>$(element).fullscreen(options)</code>;</li>
+<li>
+<code>$.fullscreen.exit()</code>: exit fullscreen mode;</li>
+<li>
+<code>$.fullscreen.isNativelySupported() {true|false}</code>: returns <code>true</code> if browser supports Fullscreen API natively;</li>
+<li>
+<code>$.fullscreen.isFullScreen() {true|false}</code>: returns <code>true</code> if there is an element opened in fullscreen.</li>
+</ul><h3>
+<a name="events" class="anchor" href="#events"><span class="octicon octicon-link"></span></a>Events</h3>
+
+<h4>
+<a name="fscreenchange" class="anchor" href="#fscreenchange"><span class="octicon octicon-link"></span></a>fscreenchange</h4>
+
+<p><code>fscreenchange</code> event is sent to <code>window.document</code> when some element on the page changes its 'fullscreen' state. Three parameters are passed to an event's handler:</p>
+
+<ul>
+<li>jQuery.Event object</li>
+<li>fullscreen state (true or false)</li>
+<li>Element</li>
+</ul><h4>
+<a name="fscreenopenfscreenclose" class="anchor" href="#fscreenopenfscreenclose"><span class="octicon octicon-link"></span></a>fscreenopen/fscreenclose</h4>
+
+<p><code>fscreenopen</code> and <code>fscreenclose</code> events are sent to an element when it's being opened in fullscreen (or exited fullscreen mode).</p>
+
+<h4>
+<a name="fscreenerror" class="anchor" href="#fscreenerror"><span class="octicon octicon-link"></span></a>fscreenerror</h4>
+
+<p><code>fscreenerror</code> event is fired on the <a href="https://github.com/document" class="user-mention">@document</a>@ if requested fullscreen operation could not be performed. </p>
+
+<h2>
+<a name="security-notes" class="anchor" href="#security-notes"><span class="octicon octicon-link"></span></a>Security notes</h2>
+
+<p>Due to security reasons, calls like <code>$(...).fullscreen()</code>, <code>$.fullscreen.open()</code>, and <code>$.fullscreen.close()</code> are allowed only inside <em>user generated event</em> (such as click, keydown, etc...). This means that the following code will not work:</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">'body'</span><span class="p">).</span><span class="nx">fullscreen</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>because fullscreen here is called directly without any action from user.</p>
+
+<h2>
+<a name="browser-support" class="anchor" href="#browser-support"><span class="octicon octicon-link"></span></a>Browser support</h2>
+
+<h3>
+<a name="native" class="anchor" href="#native"><span class="octicon octicon-link"></span></a>Native</h3>
+
+<ul>
+<li>Firefox 10+</li>
+<li>Chrome 15+</li>
+<li>Safari 5.1+</li>
+<li>Opera 12.1+</li>
+<li>Internet Explorer 11</li>
+</ul><h3>
+<a name="fallback" class="anchor" href="#fallback"><span class="octicon octicon-link"></span></a>Fallback</h3>
+
+<ul>
+<li>IE 8–10 (Should work in IE7 as well, perhaps with some minor issues)</li>
+</ul><h2>
+<a name="read-more" class="anchor" href="#read-more"><span class="octicon octicon-link"></span></a>Read more</h2>
+
+<ul>
+<li><a href="http://dvcs.w3.org/hg/fullscreen/raw-file/tip/Overview.html#api">FullScreen API Editor's Draft</a></li>
+<li><a href="https://developer.mozilla.org/en/DOM/Using_full-screen_mode">MDN – Using full-screen mode</a></li>
+</ul><h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<h3>
+<a name="mit-license" class="anchor" href="#mit-license"><span class="octicon octicon-link"></span></a>MIT License</h3>
+
+<p>Copyright (c) 2014 Vladimir Zhuravlev</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-13234250-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
