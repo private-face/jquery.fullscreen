@@ -1,10 +1,10 @@
 /*
- * jQuery.fullscreen library v0.4.0
+ * jQuery.fullscreen library v0.4.2
  * Copyright (c) 2013 Vladimir Zhuravlev
  *
  * @license https://github.com/private-face/jquery.fullscreen/blob/master/LICENSE
  *
- * Date: Wed Dec 11 22:45:17 ICT 2013
+ * Date: Tue Jul 22 11:46:13 CDT 2014
  **/
 ;(function($) {
 
@@ -90,6 +90,8 @@ FullScreenAbstract.prototype = {
 		$('html')[0].style.overflow = this.__htmlOverflow;
 	},
 	_fullScreenChange: function() {
+		if (!this.__options)
+			return; // only process fullscreenchange events caused by this plugin
 		if (!this.isFullScreen()) {
 			this._allowDocumentScroll();
 			this._revertStyles();
@@ -101,6 +103,8 @@ FullScreenAbstract.prototype = {
 		}
 	},
 	_fullScreenError: function(e) {
+		if (!this.__options)
+			return; // only process fullscreenchange events caused by this plugin
 		this._revertStyles();
 		this._fullScreenElement = null;
 		if (e) {
