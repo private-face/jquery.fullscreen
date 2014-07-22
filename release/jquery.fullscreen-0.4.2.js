@@ -4,7 +4,7 @@
  *
  * @license https://github.com/private-face/jquery.fullscreen/blob/master/LICENSE
  *
- * Date: Tue Jul 22 11:46:13 CDT 2014
+ * Date: Tue Jul 22 11:54:54 CDT 2014
  **/
 ;(function($) {
 
