@@ -11,6 +11,7 @@ RESOURCES = ${BUILD_DIR}/header.js\
 
 LIB_VER = $(shell node -e "console.log(JSON.parse(require('fs').readFileSync('fullscreener.jquery.json').toString()).version);")
 VER = sed "s/@VERSION/${LIB_VER}/"
+YEAR = $(shell date "+%Y")
 DATE = $(shell date)
 
 COMBINED = ${RELEASE_DIR}/jquery.fullscreen-${LIB_VER}.js
@@ -21,6 +22,7 @@ combine: $(RESOURCES)
 	mkdir ${RELEASE_DIR}
 	cat $(RESOURCES) | \
 		sed 's/@DATE/'"${DATE}"'/' | \
+		sed 's/@YEAR/'"${YEAR}"'/' | \
 		${VER} > $(COMBINED)
 
 min: combine
