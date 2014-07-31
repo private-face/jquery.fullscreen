@@ -98,9 +98,16 @@ $(function() {
 			it('current fullscreen element should be null', function() {
 				expect($.fullscreen.element()).toBe(null);
 			});
+
 			// check exfs element has no class 'fscreen'
 			it('body should not have "fscreen" class', function() {
 				expect($('body').hasClass('fscreen')).toBeFalsy();
+			});
+
+			// check $.fullscreen.exit() does not throw an error [#23]
+			it('should not throw an error if not in fullscreen already [#23]', function() {
+				var exit = $.proxy($.fullscreen.exit, $.fullscreen);
+				expect(exit).not.toThrow();
 			});
 		});
 
