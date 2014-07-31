@@ -27,15 +27,15 @@ FullScreenAbstract.prototype = {
 	__documentOverflow: '',
 	__htmlOverflow: '',
 	_preventDocumentScroll: function() {
-		this.__documentOverflow = $('body')[0].style.overflow;
-		this.__htmlOverflow = $('html')[0].style.overflow;
-		if(!$(this._fullScreenElement).is('body')){
+		this.__documentOverflow = document.body.style.overflow;
+		this.__htmlOverflow = document.documentElement.style.overflow;
+		if(!$(this._fullScreenElement).is('body, html')){
 			$('body, html').css('overflow', 'hidden');
 		}
 	},
 	_allowDocumentScroll: function() {
-		$('body')[0].style.overflow = this.__documentOverflow;
-		$('html')[0].style.overflow = this.__htmlOverflow;
+		document.body.style.overflow = this.__documentOverflow;
+		document.documentElement.style.overflow = this.__htmlOverflow;
 	},
 	_fullScreenChange: function() {
 		if (!this.isFullScreen()) {
@@ -68,6 +68,11 @@ FullScreenAbstract.prototype = {
 			// apply
 			this._fullScreenElement.style[property] = this.__options.styles[property];
 		}
+		if ($elem.is('body')) {
+			// in order to manipulate scrollbar of BODY in Chrome/OPR
+			// you have to change 'overflow' property HTML element
+			document.documentElement.style.overflow = this.__options.styles.overflow;
+		}
 		if (this.__options.toggleClass) {
 			$elem.addClass(this.__options.toggleClass);
 		}
@@ -76,6 +81,11 @@ FullScreenAbstract.prototype = {
 		var $elem = $(this._fullScreenElement);
 		for (var property in this.__options.styles) {
 			this._fullScreenElement.style[property] = this.__savedStyles[property];
+		}
+		if ($elem.is('body')) {
+			// in order to manipulate scrollbar of BODY in Chrome/OPR
+			// you have to change 'overflow' property HTML element
+			document.documentElement.style.overflow = this.__savedStyles.overflow;
 		}
 		if (this.__options.toggleClass) {
 			$elem.removeClass(this.__options.toggleClass);
