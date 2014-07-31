@@ -45,7 +45,7 @@ describe('Utils', function() {
 			expect(native(oldWebkitcObjDoc, 'exitFullscreen')).toBeDefined();
 		});
 
-		it('should detect old-webkit "currentFullscreenElement" methods as "fullscreenElement"', function() {
+		it('should detect old-webkit "currentFullscreenElement" methods as "fullscreenElement [#4]"', function() {
 			expect(native(oldWebkitcObjDoc, 'fullscreenElement')).toBeDefined();
 		});
 
