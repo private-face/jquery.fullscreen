@@ -44,9 +44,9 @@ extend(FullScreenFallback, FullScreenAbstract, {
 		this._fullScreenChange();
 	},
 	exit: function() {
-        if (!this.__isFullScreen) {
-            return;
-        }
+		if (!this.__isFullScreen) {
+			return;
+		}
 		this.__isFullScreen = false;
 		this._fullScreenChange();
 	},
