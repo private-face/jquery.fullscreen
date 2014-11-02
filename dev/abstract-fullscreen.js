@@ -38,6 +38,8 @@ FullScreenAbstract.prototype = {
 		document.documentElement.style.overflow = this.__htmlOverflow;
 	},
 	_fullScreenChange: function() {
+		if (!this.__options)
+			return; // only process fullscreenchange events caused by this plugin
 		if (!this.isFullScreen()) {
 			this._allowDocumentScroll();
 			this._revertStyles();
@@ -49,6 +51,8 @@ FullScreenAbstract.prototype = {
 		}
 	},
 	_fullScreenError: function(e) {
+		if (!this.__options)
+			return; // only process fullscreenchange events caused by this plugin
 		this._revertStyles();
 		this._fullScreenElement = null;
 		if (e) {
