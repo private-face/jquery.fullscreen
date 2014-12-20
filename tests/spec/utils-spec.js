@@ -1,6 +1,7 @@
 describe('Utils', function() {
 
 	describe('native()', function() {
+		var native = $.fullscreen.native;
 		// spec and opera
 		var specObjElem = {
 				requestFullscreen: function() {}
