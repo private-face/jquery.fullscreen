@@ -1,3 +1,4 @@
+
 function defined(a) {
 	return typeof a !== 'undefined';
 }

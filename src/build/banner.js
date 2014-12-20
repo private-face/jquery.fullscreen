@@ -8,3 +8,4 @@
  *
  * Date: <%= grunt.template.today("yyyy-mm-dd") %>
  **/
+;!function($) {

@@ -16,6 +16,7 @@ var FullScreenAbstract = function() {
 };
 
 FullScreenAbstract.prototype = {
+	'native': native,
 	_DEFAULT_OPTIONS: {
 		styles: {
 			'boxSizing': 'border-box',

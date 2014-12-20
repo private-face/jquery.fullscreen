@@ -14,7 +14,7 @@ module.exports = function(grunt) {
 		uglify: {
 			options: {
 				banner: grunt.file.read('src/build/banner.js', FILE_OPTIONS),
-				wrap: 'window'
+				footer: grunt.file.read('src/build/footer.js', FILE_OPTIONS)
 			},
 			source: {
 				options: {
@@ -50,7 +50,6 @@ module.exports = function(grunt) {
 	function updateJSONfile(fileName, field, value) {
 		var fileContents = grunt.file.read(fileName, FILE_OPTIONS);
 		var json = JSON.parse(fileContents);
-		console.log(json);
 		json[field] = value;
 		fileContents = JSON.stringify(json, null, '\t');
 		grunt.file.write(fileName, fileContents, FILE_OPTIONS);

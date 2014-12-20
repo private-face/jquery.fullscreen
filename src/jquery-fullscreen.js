@@ -2,8 +2,6 @@ $.fullscreen = IS_NATIVELY_SUPPORTED
 				? new FullScreenNative() 
 				: new FullScreenFallback();
 
-$.fullscreen.native = native;
-
 $.fn.fullscreen = function(options) {
 	var elem = this[0];
 
