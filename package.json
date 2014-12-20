@@ -1,0 +1,37 @@
+{
+  "name": "jQuery.fullscreen",
+  "version": "0.4.2",
+  "description": "jQuery plugin for opening any element on a page in fullscreen mode",
+  "main": "examples/index.html",
+  "directories": {
+    "example": "examples",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/private-face/jquery.fullscreen.git"
+  },
+  "keywords": [
+    "fullscreen",
+    "ui",
+    "firefox",
+    "webkit",
+    "chrome",
+    "safari",
+    "opera",
+    "IE"
+  ],
+  "author": "Vladimir Zhuravlev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/private-face/jquery.fullscreen/issues"
+  },
+  "homepage": "https://github.com/private-face/jquery.fullscreen",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}
