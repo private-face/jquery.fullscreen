@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
 
+	const FILE_OPTIONS = { encoding: 'utf8' };
 	const SOURCES = [
 		'src/utils.js',
 		'src/abstract-fullscreen.js',
@@ -12,7 +13,7 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		uglify: {
 			options: {
-				banner: grunt.file.read('src/build/banner.js', { encoding: 'utf8' }),
+				banner: grunt.file.read('src/build/banner.js', FILE_OPTIONS),
 				wrap: 'window'
 			},
 			source: {
@@ -47,9 +48,9 @@ module.exports = function(grunt) {
 	});
 
 	function updateJSONfile(fileName, field, value) {
-		const FILE_OPTIONS = { encoding: 'utf8' };
 		var fileContents = grunt.file.read(fileName, FILE_OPTIONS);
 		var json = JSON.parse(fileContents);
+		console.log(json);
 		json[field] = value;
 		fileContents = JSON.stringify(json, null, '\t');
 		grunt.file.write(fileName, fileContents, FILE_OPTIONS);
@@ -59,10 +60,9 @@ module.exports = function(grunt) {
 		if (version) {
 			updateJSONfile('package.json', 'version', version);
 		} else {
-			version = grunt.config.getRaw().pkg;
+			version = grunt.config.getRaw().pkg.version;
 		}
-		updateJSONfile('fullscreener.jquery.json', 'version', version);
-		// updateJSONfile('bower.json', 'version', version);
+		updateJSONfile('bower.json', 'version', version);
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-uglify');
