@@ -1,8 +1,15 @@
 var ua = navigator.userAgent;
 var fsEnabled = native('fullscreenEnabled');
-var IS_ANDROID_CHROME = ua.indexOf('Android') !== -1 && ua.indexOf('Chrome') !== -1; 
+
+var parsedChromeUA = ua.match(/Android.*Chrome\/(\d+)\./);
+var IS_ANDROID_CHROME = !!parsedChromeUA;
+var CHROME_VERSION;
+if (IS_ANDROID_CHROME) {
+	ANDROID_CHROME_VERSION = parseInt(parsedChromeUA[1]);
+}
+
 var IS_NATIVELY_SUPPORTED = 
-		!IS_ANDROID_CHROME &&
+		(!IS_ANDROID_CHROME || ANDROID_CHROME_VERSION > 37) &&
 		 defined(native('fullscreenElement')) && 
 		(!defined(fsEnabled) || fsEnabled === true);
 
