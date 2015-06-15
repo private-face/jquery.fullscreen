@@ -1,2 +1,2 @@
-
-}(jQuery);
+return $.fullscreen;
+}));

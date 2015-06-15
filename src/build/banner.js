@@ -8,4 +8,12 @@
  *
  * Date: <%= grunt.template.today("yyyy-mm-dd") %>
  **/
-;!function($) {
+(function(global, factory) {
+	// CommonJS/Browserify
+	if (typeof exports === 'object') {
+		factory(require('jquery'));
+	// Global
+	} else {
+		factory(global.jQuery);
+	}
+}(this, function($) {
