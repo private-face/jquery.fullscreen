@@ -1,6 +1,6 @@
 {
 	"name": "jquery.fullscreen",
-	"version": "0.5.0",
+	"version": "0.5.1",
 	"description": "jQuery plugin for showing any DOM element on a page in fullscreen mode",
 	"main": "release/jquery.fullscreen.min.js",
 	"directories": {

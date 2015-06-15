@@ -1,14 +1,23 @@
 /*
- * jQuery.fullscreen v0.5.0
+ * jquery.fullscreen v0.5.1
  * https://github.com/private-face/jquery.fullscreen
  *
- * Copyright (c) 2012–2014 Vladimir Zhuravlev
+ * Copyright (c) 2012–2015 Vladimir Zhuravlev
  * Released under the MIT license
  * https://github.com/private-face/jquery.fullscreen/blob/master/LICENSE
  *
- * Date: 2014-12-20
+ * Date: 2015-06-15
  **/
-;!function($) {function defined(a) {
+(function(global, factory) {
+	// CommonJS/Browserify
+	if (typeof exports === 'object') {
+		factory(require('jquery'));
+	// Global
+	} else {
+		factory(global.jQuery);
+	}
+}(this, function($) {
+function defined(a) {
     return typeof a !== "undefined";
 }
 
@@ -51,9 +60,17 @@ var ua = navigator.userAgent;
 
 var fsEnabled = native("fullscreenEnabled");
 
-var IS_ANDROID_CHROME = ua.indexOf("Android") !== -1 && ua.indexOf("Chrome") !== -1;
+var parsedChromeUA = ua.match(/Android.*Chrome\/(\d+)\./);
 
-var IS_NATIVELY_SUPPORTED = !IS_ANDROID_CHROME && defined(native("fullscreenElement")) && (!defined(fsEnabled) || fsEnabled === true);
+var IS_ANDROID_CHROME = !!parsedChromeUA;
+
+var CHROME_VERSION;
+
+if (IS_ANDROID_CHROME) {
+    ANDROID_CHROME_VERSION = parseInt(parsedChromeUA[1]);
+}
+
+var IS_NATIVELY_SUPPORTED = (!IS_ANDROID_CHROME || ANDROID_CHROME_VERSION > 37) && defined(native("fullscreenElement")) && (!defined(fsEnabled) || fsEnabled === true);
 
 var version = $.fn.jquery.split(".");
 
@@ -197,7 +214,7 @@ var FullScreenFallback = function() {
     FullScreenFallback._super.constructor.apply(this, arguments);
     this._DEFAULT_OPTIONS = $.extend({}, this._DEFAULT_OPTIONS, {
         styles: {
-            position: "absolute",
+            position: "fixed",
             zIndex: "2147483647",
             left: 0,
             top: 0,
@@ -268,5 +285,5 @@ $.fn.fullscreen = function(options) {
         $.fullscreen.open(elem, options);
     }
     return this;
-};
-}(jQuery);
+};return $.fullscreen;
+}));
