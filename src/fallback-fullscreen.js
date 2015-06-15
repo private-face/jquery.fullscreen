@@ -2,7 +2,7 @@ var FullScreenFallback = function() {
 	FullScreenFallback._super.constructor.apply(this, arguments);
 	this._DEFAULT_OPTIONS = $.extend({}, this._DEFAULT_OPTIONS, {
 		'styles': {
-			'position': 'absolute',
+			'position': 'fixed',
 			'zIndex': '2147483647',
 			'left': 0,
 			'top': 0,
