@@ -4,6 +4,8 @@ var fsEnabled = native('fullscreenEnabled');
 var parsedChromeUA = ua.match(/Android.*Chrome\/(\d+)\./);
 var IS_ANDROID_CHROME = !!parsedChromeUA;
 var CHROME_VERSION;
+var ANDROID_CHROME_VERSION;
+
 if (IS_ANDROID_CHROME) {
 	ANDROID_CHROME_VERSION = parseInt(parsedChromeUA[1]);
 }
