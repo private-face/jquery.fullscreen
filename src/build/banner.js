@@ -9,11 +9,16 @@
  * Date: <%= grunt.template.today("yyyy-mm-dd") %>
  **/
 (function(global, factory) {
-	// CommonJS/Browserify
-	if (typeof exports === 'object') {
+	if (typeof define === 'function' && define.amd) {
+		// AMD
+		define(['jquery'], function (jQuery) {
+			return factory(jQuery);
+		});
+	} else if (typeof exports === 'object') {
+		// CommonJS/Browserify
 		factory(require('jquery'));
-	// Global
 	} else {
+		// Global
 		factory(global.jQuery);
 	}
 }(this, function($) {
