@@ -17,7 +17,7 @@
 		"opera",
 		"IE"
 	],
-	"main": "release/jquery.fullscreen.min.js",
+	"main": "release/jquery.fullscreen.js",
 	"license": "MIT",
 	"ignore": [
 		"**/.*",
