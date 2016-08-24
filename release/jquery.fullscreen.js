@@ -1,19 +1,24 @@
 /*
- * jquery.fullscreen v0.5.1
+ * jquery.fullscreen v0.6.0
  * https://github.com/private-face/jquery.fullscreen
  *
- * Copyright (c) 2012–2015 Vladimir Zhuravlev
+ * Copyright (c) 2012–2016 Vladimir Zhuravlev
  * Released under the MIT license
  * https://github.com/private-face/jquery.fullscreen/blob/master/LICENSE
  *
- * Date: 2015-06-15
+ * Date: 2016-08-25
  **/
 (function(global, factory) {
-	// CommonJS/Browserify
-	if (typeof exports === 'object') {
+	if (typeof define === 'function' && define.amd) {
+		// AMD
+		define(['jquery'], function (jQuery) {
+			return factory(jQuery);
+		});
+	} else if (typeof exports === 'object') {
+		// CommonJS/Browserify
 		factory(require('jquery'));
-	// Global
 	} else {
+		// Global
 		factory(global.jQuery);
 	}
 }(this, function($) {
@@ -66,6 +71,8 @@ var IS_ANDROID_CHROME = !!parsedChromeUA;
 
 var CHROME_VERSION;
 
+var ANDROID_CHROME_VERSION;
+
 if (IS_ANDROID_CHROME) {
     ANDROID_CHROME_VERSION = parseInt(parsedChromeUA[1]);
 }
@@ -83,7 +90,7 @@ var FullScreenAbstract = function() {
 };
 
 FullScreenAbstract.prototype = {
-    "native": native,
+    native: native,
     _DEFAULT_OPTIONS: {
         styles: {
             boxSizing: "border-box",

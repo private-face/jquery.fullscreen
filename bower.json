@@ -1,6 +1,6 @@
 {
 	"name": "jq-fullscreen",
-	"version": "0.5.1",
+	"version": "0.6.0",
 	"homepage": "https://github.com/private-face/jquery.fullscreen",
 	"authors": [
 		"Vladimir Zhuravlev <private.face@gmail.com>"
